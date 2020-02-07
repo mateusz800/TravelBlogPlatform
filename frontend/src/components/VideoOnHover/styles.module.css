@@ -1,0 +1,14 @@
+.container{
+    display:flex;
+}
+video{
+    width:100%;
+}
+video[poster]{
+    object-fit: cover;
+}
+.controls{
+    position: relative;
+    right:50%;
+    align-self: center;
+}
