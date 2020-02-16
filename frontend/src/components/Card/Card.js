@@ -4,6 +4,7 @@ import Author from "../Author/Author";
 import Image from "../Image/Image";
 import Video from "../VideoOnHover/Video";
 import PlayButton from "../VideoOnHover/PlayButton/PlayButton";
+import ArticleInfo from "../ArticleInfo/ArticleInfo";
 import styles from "./styles.module.css";
 
 const Card = ({ image, title, subtitle, author, date, video, children }) => {
@@ -25,27 +26,23 @@ const Card = ({ image, title, subtitle, author, date, video, children }) => {
         </Video>
       )}
       {!video && image && <Image src={image} height={200} />}
-      {(author || date) && (
-        <div className={styles.details}>
-          {author && <Author name={author.name} image={author.image} />}
-          {date && <h5 className={styles.date}>{date}</h5>}
-        </div>
-      )}
-      <div className={styles.p}>
-        {title && <h1 className={styles.title}>{title}</h1>}
-        {subtitle && <h3 className={styles.subtitle}>{subtitle}</h3>}
-        <div>{children}</div>
-      </div>
+      <ArticleInfo
+        author={author}
+        date={date}
+        title={title}
+        subtitle={subtitle}
+      />
+      <div className={styles.p}>{children}</div>
     </div>
   );
 };
 
 Card.propTypes = {
-  /** 
+  /**
    * Title of the card.
    */
   title: PropTypes.string,
-  /** 
+  /**
    * Subtitle of the content that card presents.
    */
   subtitle: PropTypes.string,

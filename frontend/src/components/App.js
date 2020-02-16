@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "../store/index";
-import ArticleListContainer from "./ArticleListContainer";
+import RoutingComponent from "./RoutingComponent";
+
 
 const App = () => {
   return (
     <Provider store={store}>
-      <ArticleListContainer />
+      <RoutingComponent />
     </Provider>
   );
 };

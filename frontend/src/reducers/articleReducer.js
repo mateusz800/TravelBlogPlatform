@@ -12,6 +12,12 @@ function articleReducer(state=initialState, action){
                 ...state,
                 articles: action.payload
             }
+        case articleActions.SEARCH_ARTCILES:
+            return {
+                ...state,
+                articles: action.payload
+            }
+
         default: 
             return state;
     }

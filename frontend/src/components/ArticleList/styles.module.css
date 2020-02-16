@@ -1,0 +1,13 @@
+.articleList {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+.articleList:after {
+  content: "";
+  flex: auto;
+  align-self: center;
+}
+.emptyList{
+  width:100%;
+  text-align: center;
+}
