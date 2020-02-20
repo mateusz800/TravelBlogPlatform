@@ -1,6 +1,12 @@
-./frontend/__pycache__
-./frontend/node_modules
-./frontend/package-lock.json
+frontend/node_modules
+frontend/package-lock.json
 
-./*/migrations
-./db.sqlite3
+*/migrations
+*/__pycache__
+
+.vscode
+
+.vscode/
+frontend/node_modules/
+venv/
+db.sqlite3
