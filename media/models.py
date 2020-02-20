@@ -16,3 +16,4 @@ class Media(models.Model):
 
 class Photo(Media):
     image = models.ImageField(upload_to='photos/')
+
