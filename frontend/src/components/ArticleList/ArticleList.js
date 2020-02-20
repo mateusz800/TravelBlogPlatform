@@ -28,7 +28,7 @@ const ArticleList = ({ articles }) => {
               key={article.pk}
               title={article.title}
               subtitle={article.subtitle}
-              image={article.photo_source}
+              image={article.photo.source}
               date={article.published_date}
               author={article.author}
               height='375px'

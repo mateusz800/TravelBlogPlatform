@@ -8,7 +8,7 @@ Use an author component always as a credentials to work what that person have do
 **/
 const Author = ({ name, image, color }) => (
     <div className={styles.author}>
-        { image && <Avatar image={image} size={40}/>}
+        { image && <Avatar image={image} size={30}/>}
         <h5 style={{color:color}}>{name}</h5>
     </div>
 );

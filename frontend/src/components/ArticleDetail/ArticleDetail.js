@@ -7,7 +7,7 @@ const ArticleDetail = ({ article }) => {
   const content = useRef(null);
   return (
     <div>
-      <Image src={article.photo_source} height="95vh" brightness={50} />
+      {article.photo &&<Image src={article.photo.source} height="95vh" brightness={50} />}
       <div className={styles.info}>
         <h1>{article.title}</h1>
         <h3>{article.subtitle}</h3>

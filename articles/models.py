@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from media.models import Photo
+from profiles.models import Profile
 
 
 class PublishedManager(models.Manager):
@@ -17,7 +18,7 @@ class Article(models.Model):
         ('published', 'Published')
     )
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='articles', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     subtitle = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()
