@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import styles from "./styles.module.css";
 import { searchArticles } from "../../actions/articleActions";
+import { Redirect } from "react-router";
 
 class FilterColumn extends React.Component {
   constructor() {
@@ -10,21 +12,30 @@ class FilterColumn extends React.Component {
     this.state = { search: "" };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
   handleInputChange(e) {
-    const keywords = e.target.value;
+    this.setState({ search: e.target.value });
+  }
+  handleSearchSubmit() {
+    const keywords = this.state.search;
     this.props.search(keywords);
+    this.props.history.push(`/blog/search/${keywords}`);
   }
   render() {
     return (
-      <div className={styles.container}>
-        <input
-          type="search"
-          placeholder="search"
-          onChange={this.handleInputChange}
-        />
-        <h5>New / Popular</h5>
-      </div>
+      <Fragment>
+        <div className={styles.container}>
+          <form onSubmit={this.handleSearchSubmit}>
+            <input
+              type="search"
+              placeholder="search"
+              onChange={this.handleInputChange}
+            />
+          </form>
+          <h5>New / Popular </h5>
+        </div>
+      </Fragment>
     );
   }
 }
@@ -35,4 +46,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(FilterColumn);
+export default connect(null, mapDispatchToProps)(withRouter(FilterColumn));

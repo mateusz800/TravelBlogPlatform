@@ -7,8 +7,9 @@ const TruncuatedText = ({ lines, text }) => (
         style={{
             WebkitLineClamp: lines
         }}
+        
     >
-        {text}
+       <span dangerouslySetInnerHTML={{ __html: text }}></span>
     </p>
 )
 

@@ -1,6 +1,9 @@
 .articleList {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
+  transition:all .5s;
+  margin-bottom: 10px;
+ 
 }
 .articleList:after {
   content: "";
@@ -10,4 +13,44 @@
 .emptyList{
   width:100%;
   text-align: center;
+}
+.listContainer{
+  display:grid;
+  grid-template-columns: 75% 250px;
+  margin:auto;
+  justify-content: center;
+  margin-top:50px;
+}
+.results{
+  margin-top:-1.4rem;
+}
+
+
+
+@media only screen and (max-width: 1300px){
+  .articleList{
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+@media only screen and (max-width: 1110px){
+  .articleList{
+    grid-template-columns: 50% 50%;
+  }
+}
+@media only screen and (max-width: 1000px){
+  .articleList{
+    grid-template-columns: 50% 50%;
+  }
+  .listContainer{
+    grid-template-columns: 75%;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .articleList{
+    grid-template-columns: 100%;
+  }
+  .listContainer{
+    grid-template-columns: 100%;
+  }
 }

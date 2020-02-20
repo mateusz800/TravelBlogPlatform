@@ -1,15 +1,23 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ArticleListContainer from "./ArticleList/ArticleListContainer";
-import ArticleDetail from "./ArticleDetail/ArticleDetail";
+import ArticleDetailContainer from "./ArticleDetail/ArticleDetailContainer";
 
 const RoutingComponent = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/blog" component={ArticleListContainer} />
+      <Route
+        exact path="/blog/page/:page"
+        component={routeProps => <ArticleListContainer {...routeProps} />}
+      />
+      <Route
+        exact path="/blog/search/:keywords"
+        component={routeProps => <ArticleListContainer {...routeProps} />}
+      />
+      <Route path="/blog" component={ArticleListContainer}/>
       <Route
         path="/article/:pk"
-        component={routeProps => <ArticleDetail {...routeProps} />}
+        component={routeProps => <ArticleDetailContainer {...routeProps} />}
       />
     </Switch>
   </BrowserRouter>

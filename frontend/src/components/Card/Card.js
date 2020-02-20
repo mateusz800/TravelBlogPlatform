@@ -4,10 +4,10 @@ import Author from "../Author/Author";
 import Image from "../Image/Image";
 import Video from "../VideoOnHover/Video";
 import PlayButton from "../VideoOnHover/PlayButton/PlayButton";
-import ArticleInfo from "../ArticleInfo/ArticleInfo";
+import Info from "./Info/Info";
 import styles from "./styles.module.css";
 
-const Card = ({ image, title, subtitle, author, date, video, children }) => {
+const Card = ({ image, title, subtitle, author, date, video, height, children }) => {
   const [hover, setHover] = useState(false);
 
   function handleHover() {
@@ -19,14 +19,15 @@ const Card = ({ image, title, subtitle, author, date, video, children }) => {
       className={styles.card}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
+      style={height ? {height:height}:{}}
     >
       {video && (
         <Video src={video} image={image} muted={true} play={hover} height={200}>
           <PlayButton />
         </Video>
       )}
-      {!video && image && <Image src={image} height={200} />}
-      <ArticleInfo
+      {!video && image && <Image src={image} height={200} effect='zoom-on-hover'/>}
+      <Info
         author={author}
         date={date}
         title={title}
