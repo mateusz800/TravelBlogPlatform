@@ -17,10 +17,11 @@ class FilterColumn extends React.Component {
   handleInputChange(e) {
     this.setState({ search: e.target.value });
   }
-  handleSearchSubmit() {
+  handleSearchSubmit(e) {
+    e.preventDefault();
     const keywords = this.state.search;
     this.props.search(keywords);
-    this.props.history.push(`/blog/search/${keywords}`);
+    this.props.history.push(`/blog/search/${keywords}/page/1`);
   }
   render() {
     return (

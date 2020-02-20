@@ -11,7 +11,7 @@ const RoutingComponent = () => (
         component={routeProps => <ArticleListContainer {...routeProps} />}
       />
       <Route
-        exact path="/blog/search/:keywords"
+        exact path="/blog/search/:keywords/page/:page"
         component={routeProps => <ArticleListContainer {...routeProps} />}
       />
       <Route path="/blog" component={ArticleListContainer}/>

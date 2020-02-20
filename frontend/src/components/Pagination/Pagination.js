@@ -5,7 +5,7 @@ import PageNumber from "./Buttons/PageNumber";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
-const Pagination = ({ visible, actual, max }) => {
+const Pagination = ({ visible, actual, max, searchKeywords }) => {
   const numbers = [...Array(visible).keys()].map(number => {
     const actualNumber = number + actual - Math.floor(visible / 2);
     if (actualNumber <= max) {
@@ -13,6 +13,7 @@ const Pagination = ({ visible, actual, max }) => {
     }
     return;
   });
+  
   return (
     <Fragment>
       <div className={styles.container}>
@@ -23,14 +24,20 @@ const Pagination = ({ visible, actual, max }) => {
         ) : (
           <ArrowButton direction="prev" disabled={true} />
         )}
-        {numbers.map(number => (
-          <Link to={`/blog/page/${number}`} key={number}>
-            {number > 0 ? (
-              <PageNumber number={number} key={number} />
-            ) : <Fragment key={number}/>
-            }
-          </Link>
-        ))}
+        {numbers.map(number => {
+          const link = searchKeywords
+            ? `/blog/search/${searchKeywords}/page/${number}`
+            : `/blog/page/${number}`;
+          return (
+            <Link to={link} key={number}>
+              {number > 0 ? (
+                <PageNumber number={number} key={number} />
+              ) : (
+                <Fragment key={number} />
+              )}
+            </Link>
+          );
+        })}
         {actual < max ? (
           <Link to={`/blog/page/${actual + 1}`}>
             <ArrowButton direction="next" />

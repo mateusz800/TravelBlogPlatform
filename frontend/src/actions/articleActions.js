@@ -32,6 +32,12 @@ export const getArticle = pk => dispatch => {
   })
 }
 
+export const searchArticlesOnPage = (keywords, page) => dispatch => {
+  axios.get(`/api/articles?search=${keywords}&page=${page}`).then(res => {
+    updateArticleListData(res.data, dispatch);
+  });
+}
+
 function updateArticleListData(data, dispatch) {
   dispatch({
     type: articleActions.GET_ARTICLES,
