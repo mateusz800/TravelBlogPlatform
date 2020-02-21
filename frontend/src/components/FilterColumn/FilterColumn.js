@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styles from "./styles.module.css";
 import { searchArticles } from "../../actions/articleActions";
-import { Redirect } from "react-router";
 
 class FilterColumn extends React.Component {
   constructor() {
@@ -21,7 +20,7 @@ class FilterColumn extends React.Component {
     e.preventDefault();
     const keywords = this.state.search;
     this.props.search(keywords);
-    this.props.history.push(`/blog/search/${keywords}/page/1`);
+    this.props.history.push(`/stories/search/${keywords}/page/1`);
   }
   render() {
     return (
@@ -34,7 +33,6 @@ class FilterColumn extends React.Component {
               onChange={this.handleInputChange}
             />
           </form>
-          <h5>New / Popular </h5>
         </div>
       </Fragment>
     );

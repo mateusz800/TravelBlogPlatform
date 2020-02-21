@@ -19,7 +19,7 @@ const Info = ({ author, date, title, subtitle }) => (
 );
 
 Info.propTypes = {
-  author: PropTypes.element,
+  author: PropTypes.any,
   date: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string

@@ -16,14 +16,14 @@ const ArticleList = ({ articles }) => {
   return (
     <div className={styles.articleList}>
       {!Array.isArray(articles) ? (
-        <Link to={`/article/${articles.pk}`}>
+        <Link to={`/story/${articles.pk}`}>
           <Card title={articles.title} height="375px">
             <TruncuatedText lines={3} text={articles.content} />
           </Card>
         </Link>
       ) : (
         articles.map(article => (
-          <Link to={`/article/${article.pk}`} key={article.pk}>
+          <Link to={`/story/${article.pk}`} key={article.pk}>
             <Card
               key={article.pk}
               title={article.title}

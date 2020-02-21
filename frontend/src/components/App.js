@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import store from "../store/index";
 import RoutingComponent from "./RoutingComponent";
 import Header from "./Header/Header";
@@ -8,8 +9,10 @@ import Header from "./Header/Header";
 const App = () => {
   return (
     <Provider store={store}>
-      <Header />
-      <RoutingComponent />
+      <BrowserRouter>
+        <Header />
+        <RoutingComponent />
+      </BrowserRouter>
     </Provider>
   );
 };

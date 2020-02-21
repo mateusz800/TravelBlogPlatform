@@ -9,6 +9,7 @@ import {
   searchArticlesOnPage
 } from "../../actions/articleActions";
 import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 
 class ArticleListContainer extends Component {
   componentDidMount() {
@@ -36,13 +37,14 @@ class ArticleListContainer extends Component {
             {keywords && (
               <p className={`text-center ${styles.results}`}>
                 Results for search: {keywords}
+                <Link to='/stories/page/1'><span>&times;</span></Link>
               </p>
             )}
             <ArticleList articles={this.props.articles} />
           </div>
           <Pagination
             actual={parseInt(this.props.match.params.page) || 1}
-            max={Math.ceil(this.props.articlesCount / 4)}
+            max={Math.ceil(this.props.articlesCount / 12)}
             visible={5}
             searchKeywords={keywords}
           />

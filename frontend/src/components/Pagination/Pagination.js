@@ -18,7 +18,7 @@ const Pagination = ({ visible, actual, max, searchKeywords }) => {
     <Fragment>
       <div className={styles.container}>
         {actual > 1 ? (
-          <Link to={`/blog/page/${actual - 1}`}>
+          <Link to={`/stories/page/${actual - 1}`}>
             <ArrowButton direction="prev" />
           </Link>
         ) : (
@@ -26,8 +26,8 @@ const Pagination = ({ visible, actual, max, searchKeywords }) => {
         )}
         {numbers.map(number => {
           const link = searchKeywords
-            ? `/blog/search/${searchKeywords}/page/${number}`
-            : `/blog/page/${number}`;
+            ? `/stories/search/${searchKeywords}/page/${number}`
+            : `/stories/page/${number}`;
           return (
             <Link to={link} key={number}>
               {number > 0 ? (
@@ -39,7 +39,7 @@ const Pagination = ({ visible, actual, max, searchKeywords }) => {
           );
         })}
         {actual < max ? (
-          <Link to={`/blog/page/${actual + 1}`}>
+          <Link to={`/stories/page/${actual + 1}`}>
             <ArrowButton direction="next" />
           </Link>
         ) : (

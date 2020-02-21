@@ -24,6 +24,11 @@
 .results{
   margin-top:-1.4rem;
 }
+.results span{
+  margin-left:10px;
+  font-weight:bolder;
+  cursor: pointer;
+}
 
 
 

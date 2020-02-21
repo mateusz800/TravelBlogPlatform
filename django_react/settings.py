@@ -129,5 +129,5 @@ MEDIA_URL = '/media/'
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%d-%m-%Y",
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 4
+    'PAGE_SIZE': 12
 }
