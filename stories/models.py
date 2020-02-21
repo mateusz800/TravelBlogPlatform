@@ -12,13 +12,13 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
-class Article(models.Model):
+class Story(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published')
     )
 
-    author = models.ForeignKey(Profile, related_name='articles', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='stories', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     subtitle = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()

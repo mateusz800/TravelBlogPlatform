@@ -1,12 +1,14 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ArticleListContainer from "./ArticleList/ArticleListContainer";
-import ArticleDetailContainer from "./ArticleDetail/ArticleDetailContainer";
+import { Switch, Route } from "react-router-dom";
+import ArticleListContainer from "./StoryList/StoryListContainer";
+import ArticleDetailContainer from "./StoryDetail/StoryDetailContainer";
 import ProfileDetailsContainer from "./ProfileDetails/ProfileDetailsContainer";
+import ArticleEditor from "./StoryEditor/StoryEditor";
 
 const RoutingComponent = () => (
 
     <Switch>
+      <Route exact path="/stories/new" component={ArticleEditor}/>
       <Route
         exact
         path="/stories/page/:page"
@@ -22,6 +24,11 @@ const RoutingComponent = () => (
         exact
         path="/story/:pk"
         component={routeProps => <ArticleDetailContainer {...routeProps} />}
+      />
+       <Route
+        exact
+        path="/story/:pk/edit"
+        component={routeProps => <ArticleEditor {...routeProps} />}
       />
       <Route
         exact

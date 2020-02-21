@@ -48,11 +48,11 @@ Card.propTypes = {
    */
   subtitle: PropTypes.string,
   /**
-   * Author of the article
+   * Author of the story
    */
   author: PropTypes.object,
   /**
-   * A string representation of the date when that article was published.
+   * A string representation of the date when that story was published.
    */
   date: PropTypes.string,
   /**

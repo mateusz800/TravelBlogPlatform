@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import articleReducer from "./articleReducer";
+import storiesReducer from "./storiesReducer";
 import profileReducer from "./profileReducer";
 
 const rootReducer = combineReducers({
-  articles: articleReducer,
+  stories: storiesReducer,
   profiles: profileReducer
 });
 

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ArticleList from "./ArticleList";
+import StoryList from "./StoryList";
 import FilterColumn from "../FilterColumn/FilterColumn";
 import Pagination from "../Pagination/Pagination";
 import {
   changePage,
   searchArticles,
   searchArticlesOnPage
-} from "../../actions/articleActions";
+} from "../../actions/storyActions";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
@@ -40,11 +40,11 @@ class ArticleListContainer extends Component {
                 <Link to='/stories/page/1'><span>&times;</span></Link>
               </p>
             )}
-            <ArticleList articles={this.props.articles} />
+            <StoryList stories={this.props.stories} />
           </div>
           <Pagination
             actual={parseInt(this.props.match.params.page) || 1}
-            max={Math.ceil(this.props.articlesCount / 12)}
+            max={Math.ceil(this.props.storiesCount / 12)}
             visible={5}
             searchKeywords={keywords}
           />
@@ -66,8 +66,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles.articles,
-    articlesCount: state.articles.articlesCount
+    stories: state.stories.stories,
+    storiesCount: state.stories.storiesCount
   };
 }
 

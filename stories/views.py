@@ -5,27 +5,27 @@ from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
-from .models import Article
+from .models import Story
 from .serializers import ArticleSerializer
 
 
-class ArticleList(generics.ListCreateAPIView):
+class StoryList(generics.ListCreateAPIView):
     """
     View that returns a list of artilces.
     It offers the pagination and search functionality
     """
     search_fields = ['title']
     filter_backends = (filters.SearchFilter,)
-    queryset = Article.objects.all()
+    queryset = Story.objects.all()
     serializer_class = ArticleSerializer
 
 
 @api_view(['GET'])
-def article_detail(request, pk):
+def story_details(request, pk):
     """
-    View to get the details of the article with given pk
+    View to get the details of the story with given pk
     """
-    article = get_object_or_404(Article, pk=pk)
+    story = get_object_or_404(Story, pk=pk)
     serializer = ArticleSerializer(
-        article, context={'request': request}, many=False)
+        story, context={'request': request}, many=False)
     return Response(serializer.data)

@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import ArticleDetail from "./ArticleDetail";
-import { getArticle } from "../../actions/articleActions";
+import StoryDetails from "./StoryDetail";
+import { getStory } from "../../actions/storyActions";
 
 class ArticleDetailContainer extends Component {
   componentDidMount() {
     this.props.loadData(this.props.match.params.pk);
   }
   render() {
-    if (this.props.article) {
-      return <ArticleDetail article={this.props.article} />;
+    if (this.props.story) {
+      return <StoryDetails story={this.props.story} />;
     } else {
       return <Fragment />;
     }
@@ -19,13 +19,13 @@ class ArticleDetailContainer extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: pk => dispatch(getArticle(pk))
+    loadData: pk => dispatch(getStory(pk))
   };
 }
 
 function mapStateToProps(state) {
   return {
-    article: state.articles.currentArticle
+    story: state.stories.currentStory
   };
 }
 export default connect(

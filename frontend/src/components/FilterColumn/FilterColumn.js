@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styles from "./styles.module.css";
-import { searchArticles } from "../../actions/articleActions";
+import { searchArticles } from "../../actions/storyActions";
 
 class FilterColumn extends React.Component {
   constructor() {

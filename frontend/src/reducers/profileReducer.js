@@ -1,6 +1,6 @@
 import { profileActions } from "../actions/types";
 
-function articleReducer(state = [], action) {
+function storiesReducer(state = [], action) {
   switch (action.type) {
     case profileActions.GET_PROFILE:
       return {
@@ -12,4 +12,4 @@ function articleReducer(state = [], action) {
   }
 }
 
-export default articleReducer;
+export default storiesReducer;

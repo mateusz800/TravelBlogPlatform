@@ -1,8 +1,8 @@
-export const articleActions = {
-  GET_ARTICLES: "GET_ARTICLES",
-  GET_ARTICLES_COUNT: "GET_ARTICLES_COUNT",
+export const storyActions = {
+  GET_STORY: "GET_STORY",
+  GET_STORY_COUNT: "GET_STORY_COUNT",
   CHANGE_LIST_PAGE: "CHANGE_ARTICLE_LIST_PAGE",
-  READ_ARTICLE: "READ_ARTICLE"
+  READ_STORY: "READ_STORY"
 };
 
 export const profileActions = {

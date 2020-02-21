@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import Image from "../Image/Image";
+import Avatar from '../Avatar/Avatar'
 
 const ProfileDetails = ({ profile }) => {
   if (profile) {
     return (
       <div>
-        <Image src={profile.photo.source} width={200} height={200} />
+        <Avatar image={profile.photo.source} size={150}/>
         <h3>{profile.name}</h3>
       </div>
     );

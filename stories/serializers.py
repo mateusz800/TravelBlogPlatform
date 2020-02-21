@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from profiles.serializers import ProfileSerializer
 from media.serializers import PhotoSerializer
 
-from .models import Article
+from .models import Story
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
+        model = Story
         fields = ('pk', 'author', 'title', 'subtitle',
                   'body', 'published_date', 'photo')
 
