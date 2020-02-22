@@ -5,8 +5,8 @@ import FilterColumn from "../FilterColumn/FilterColumn";
 import Pagination from "../Pagination/Pagination";
 import {
   changePage,
-  searchArticles,
-  searchArticlesOnPage
+  searchStories,
+  searchStoriesOnPage
 } from "../../actions/storyActions";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
@@ -58,9 +58,9 @@ class ArticleListContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     loadPage: page => dispatch(changePage(page)),
-    search: keywords => dispatch(searchArticles(keywords)),
+    search: keywords => dispatch(searchStories(keywords)),
     searchOnPage: (keywords, page) =>
-      dispatch(searchArticlesOnPage(keywords, page))
+      dispatch(searchStoriesOnPage(keywords, page))
   };
 }
 

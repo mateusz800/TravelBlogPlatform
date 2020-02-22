@@ -28,7 +28,7 @@ const Image = ({
         effect == "zoom-on-hover" ? styles.zoomOnHover : ""
       }`}
       style={{
-        background: `url('${src}')`,
+        background: `${src ? 'url("'+src+'")':'gray'}`,
         filter: `brightness(${brightness ? brightness : 100}%)`
       }}
     >
@@ -38,7 +38,7 @@ const Image = ({
 );
 
 Image.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   border: PropTypes.string,

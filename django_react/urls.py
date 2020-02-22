@@ -9,5 +9,6 @@ urlpatterns += [
     path('admin/', admin.site.urls),
     path('', include('stories.urls')),
     path('', include('profiles.urls')),
+    path('', include('media.urls')),
     path('', include('frontend.urls')),
 ] 

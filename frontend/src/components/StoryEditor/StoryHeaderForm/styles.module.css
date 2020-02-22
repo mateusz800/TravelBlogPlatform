@@ -1,0 +1,27 @@
+.generalInfo{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:95vh;
+    margin-top:-95vh;
+}
+.generalInfo input{
+    text-align: center;
+    border:none;
+    background:none;
+    color:white;
+    z-index: 1;
+}
+.generalInfo input:focus{
+    outline: none;
+}
+.generalInfo input[name='title']{
+    font-size: 2.5rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.generalInfo input[name='subtitle']{
+    font-size:1.5rem;
+
+}

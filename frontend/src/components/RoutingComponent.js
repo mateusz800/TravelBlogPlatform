@@ -8,7 +8,6 @@ import ArticleEditor from "./StoryEditor/StoryEditor";
 const RoutingComponent = () => (
 
     <Switch>
-      <Route exact path="/stories/new" component={ArticleEditor}/>
       <Route
         exact
         path="/stories/page/:page"
@@ -20,6 +19,7 @@ const RoutingComponent = () => (
         component={routeProps => <ArticleListContainer {...routeProps} />}
       />
       <Route exact path="/stories" component={ArticleListContainer} />
+      <Route exact path="/story/new" component={ArticleEditor}/>
       <Route
         exact
         path="/story/:pk"

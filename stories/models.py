@@ -18,7 +18,7 @@ class Story(models.Model):
         ('published', 'Published')
     )
 
-    author = models.ForeignKey(Profile, related_name='stories', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='stories_of', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     subtitle = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()

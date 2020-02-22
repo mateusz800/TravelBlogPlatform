@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import styles from "./styles.module.css";
-import { searchArticles } from "../../actions/storyActions";
+import { searchStories } from "../../actions/storyActions";
 
 class FilterColumn extends React.Component {
   constructor() {
@@ -41,7 +41,7 @@ class FilterColumn extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    search: keywords => dispatch(searchArticles(keywords))
+    search: keywords => dispatch(searchStories(keywords))
   };
 }
 

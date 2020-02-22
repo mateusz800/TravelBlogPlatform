@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Media(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=25, null=True)
     published_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -11,7 +11,7 @@ class Media(models.Model):
         ordering = ('-published_date',)
 
     def __str__(self):
-        return self.name
+        return self.name or str(self.pk)
 
 
 class Photo(Media):

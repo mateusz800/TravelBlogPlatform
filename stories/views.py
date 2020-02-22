@@ -4,9 +4,10 @@ from rest_framework import filters, generics
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 from .models import Story
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, GeneralArticleSerializer
 
 
 class StoryList(generics.ListCreateAPIView):
@@ -29,3 +30,23 @@ def story_details(request, pk):
     serializer = ArticleSerializer(
         story, context={'request': request}, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def add_story(request):
+    """
+    View that allow you to add the new story
+    """
+    try:
+        pk = request.data['pk']
+        story = Story.objects.get(pk=pk)
+        print(request.data)
+        serializer = GeneralArticleSerializer(story, data=request.data)
+    except KeyError:
+        # data has not pk attribute (story not exist)
+        serializer = GeneralArticleSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=HTTP_201_CREATED)
+    print(serializer.errors)
+    return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

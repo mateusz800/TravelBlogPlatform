@@ -1,10 +1,13 @@
 .editor {
     position:relative;
-    padding-left:20px;
+    padding-left:150px;
     font-size:x-large;
 }
-.editor div{
+.editor > div{
   background:none;
+}
+.editor .md-editor-toolbar{
+  background: black !important;
 }
 
   

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from corsheaders.defaults import default_headers
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -129,5 +130,7 @@ MEDIA_URL = '/media/'
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%d-%m-%Y",
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 12
+    'PAGE_SIZE': 12,
 }
+
+

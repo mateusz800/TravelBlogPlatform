@@ -28,6 +28,7 @@
     "draft-convert": "^2.1.8",
     "draft-js": "^0.11.4",
     "draft-js-export-html": "^1.4.1",
+    "draft-js-import-html": "^1.4.1",
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-side-toolbar-plugin": "^3.0.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

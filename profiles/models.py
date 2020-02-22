@@ -4,7 +4,7 @@ from media.models import Photo
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     photo = models.ForeignKey(Photo, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
