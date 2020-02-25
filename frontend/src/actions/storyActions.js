@@ -1,5 +1,6 @@
 import axios from "axios";
 import { storyActions } from "./types";
+import store from "../store";
 
 export const getArticles = () => dispatch => {
   axios.get("/api/stories").then(res => {
@@ -43,7 +44,7 @@ export const addStory = data => dispatch => {
   let postData = {
     title: data.title,
     body: data.body,
-    author: 1,
+    author: store.getState().profiles.user_pk
   };
   if (data.pk) {
     postData["pk"] = data.pk;

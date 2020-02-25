@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-from corsheaders.defaults import default_headers
 import os
+
+from corsheaders.defaults import default_headers
+from django.conf.global_settings import AUTHENTICATION_BACKENDS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,6 +133,12 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%d-%m-%Y",
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 12,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
-
+AUTHENTICATION_BACKENDS = (
+    'profiles.authentication.EmailAuthBackend',
+)

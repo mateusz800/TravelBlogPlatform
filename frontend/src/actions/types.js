@@ -7,7 +7,9 @@ export const storyActions = {
 };
 
 export const profileActions = {
-  GET_PROFILE: "GET_PROFILE"
+  GET_PROFILE: "GET_PROFILE",
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT'
 };
 
 export const mediaActions = {

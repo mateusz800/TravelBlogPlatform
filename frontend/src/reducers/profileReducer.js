@@ -7,6 +7,23 @@ function profileReducer(state = [], action) {
         ...state,
         profile: action.payload
       };
+    case profileActions.CHECK_IF_LOGGED:
+      return {
+        ...state,
+        is_authenticated: action.payload
+      }
+    case profileActions.LOGIN:
+      return {
+        ...state,
+        is_authenticated: true,
+        user_pk: action.payload
+      }
+    case profileActions.LOGOUT:
+      return {
+        ...state,
+        is_authenticated: false,
+        user_pk: null
+      }
     default:
       return state;
   }
