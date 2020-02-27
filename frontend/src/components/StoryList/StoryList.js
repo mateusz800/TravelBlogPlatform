@@ -6,7 +6,10 @@ import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
 const StoryList = ({ stories }) => {
-  if (stories.length == 0) {
+  if(!stories){
+    return <Fragment/>;
+  }
+  else if (stories.length == 0) {
     return (
       <div className={styles.emptyList}>
         No items find matching the criteria

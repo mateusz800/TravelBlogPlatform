@@ -6,10 +6,10 @@ import "../../../node_modules/medium-draft/lib/index.css";
 import styles from "./styles.module.css";
 import { Editor, createEditorState, EditorState } from "medium-draft";
 import mediumDraftImporter from "medium-draft/lib/importer";
-import { getStory, addStory } from "../../actions/storyActions";
+import { getStory, addStory, resetCurrentStory } from "../../actions/storyActions";
 import StoryHeaderForm from "./StoryHeaderForm/StoryHeaderForm";
 
-class ArticleEditor extends React.Component {
+class StoryEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = { editorState: createEditorState() };
@@ -25,11 +25,14 @@ class ArticleEditor extends React.Component {
     if (pk) {
       this.props.loadData(pk);
     }
+    else{
+      this.props.resetData();
+    }
     this.refsEditor.current.focus();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.story != prevProps.story) {
+    if (this.props.story && this.props.story != prevProps.story) {
       this.setState({
         editorState: createEditorState(
           convertToRaw(mediumDraftImporter(this.props.story.body))
@@ -68,7 +71,7 @@ class ArticleEditor extends React.Component {
     const { editorState } = this.state;
     return (
       <Fragment>
-        {this.props.story && (
+        {this.props.story && this.props.story.photo && (
           <StoryHeaderForm
             title={this.props.story.title}
             updateData={this.getData}
@@ -98,8 +101,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadData: pk => dispatch(getStory(pk)),
+    resetData: () => dispatch(resetCurrentStory()),
     addStory: data => dispatch(addStory(data))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(StoryEditor);

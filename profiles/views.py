@@ -8,6 +8,9 @@ from django.views.decorators.http import require_GET
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
+
+from media.models import Photo
 
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -47,8 +50,16 @@ def logout_view(request):
 @api_view(['POST'])
 def register_view(request):
     email = request.data['email']
+    # check if the email is unique
+    if len(User.objects.filter(email=email)) > 0:
+        return Response({'status': 'User with that email already exist'})
     password = request.data['password']
-    user = User.objects.create(email=email, password=password, username=generate_random_username())
+    user = User.objects.create(
+        email=email, username=generate_random_username())
+    user.set_password(password)
+    user.first_name = request.data['first_name']
+    user.last_name = request.data['last_name']
+    user.save()
     profile = Profile(user=user)
     profile.save()
     return Response({'pk': profile.pk})
@@ -58,8 +69,23 @@ def register_view(request):
 def is_authenticated_view(request):
     """
     Views that allow you to check if the user is already authenticated.
-    If 
     """
     return Response({'is_authenticated': request.user.is_authenticated, 'pk': request.user.pk})
 
 
+@api_view(['POST'])
+def edit_profile_view(request, pk):
+    profile = get_object_or_404(Profile, user=pk)
+    data = {}
+    if 'background_photo' in request.data:
+        data['background_photo'] = get_object_or_404(
+            Photo, pk=request.data['background_photo'])
+    if 'profile_photo' in request.data:
+        data['photo'] = get_object_or_404(
+            Photo, pk=request.data['profile_photo'])
+    context = {'request': request}
+    print(data)
+    serializer = ProfileSerializer(context=context)
+    new_profile = serializer.update(
+        profile, data)
+    return Response(ProfileSerializer(new_profile, context=context).data)

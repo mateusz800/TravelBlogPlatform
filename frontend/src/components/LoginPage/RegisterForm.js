@@ -19,7 +19,13 @@ class RegisterForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
-      this.props.submit(this.state.email, this.state.password1);
+      console.log(this.state);
+      this.props.submit(
+        this.state.email,
+        this.state.password1,
+        this.state.firstName,
+        this.state.lastName
+      );
     }
   }
   render() {
@@ -29,6 +35,18 @@ class RegisterForm extends Component {
           type="email"
           name="email"
           placeholder="email"
+          onChange={this.handleChange}
+        />
+        <input
+          type="text"
+          name="firstName"
+          placeholder="first name"
+          onChange={this.handleChange}
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="last name"
           onChange={this.handleChange}
         />
         <input
@@ -51,7 +69,8 @@ class RegisterForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submit: (email, password) => dispatch(register(email, password))
+    submit: (email, password, firstName, lastName) =>
+      dispatch(register(email, password, firstName, lastName))
   };
 }
 

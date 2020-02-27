@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import ArticleListContainer from "./StoryList/StoryListContainer";
 import ArticleDetailContainer from "./StoryDetail/StoryDetailContainer";
 import ProfileDetailsContainer from "./ProfileDetails/ProfileDetailsContainer";
-import ArticleEditor from "./StoryEditor/StoryEditor";
+import StoryEditor from "./StoryEditor/StoryEditor";
 import LoginPage from "./LoginPage/LoginPage";
 import { checkIfAuthenticated } from "../actions/profileActions";
 import { render } from "react-dom";
@@ -28,7 +28,7 @@ class RoutingComponent extends Component {
           component={routeProps => <ArticleListContainer {...routeProps} />}
         />
         <Route exact path="/stories" component={ArticleListContainer} />
-        <Route exact path="/story/new" component={ArticleEditor} />
+        <Route exact path="/story/new" component={StoryEditor} />
         <Route
           exact
           path="/story/:pk"
@@ -38,7 +38,21 @@ class RoutingComponent extends Component {
           <Route
             exact
             path="/story/:pk/edit"
-            component={routeProps => <ArticleEditor {...routeProps} />}
+            component={routeProps => <StoryEditor {...routeProps} />}
+          />
+        )}
+        <Route
+          exact
+          path="/profile/:pk"
+          component={routeProps => <ProfileDetailsContainer {...routeProps} page='main' />}
+        />
+        {is_authenticated && (
+          <Route
+            exact
+            path="/profile/:pk/settings"
+            component={ routeProps => (
+              <ProfileDetailsContainer {...routeProps} page="settings"/>
+            )}
           />
         )}
         {!is_authenticated && (
@@ -55,11 +69,6 @@ class RoutingComponent extends Component {
             />
           </Fragment>
         )}
-        <Route
-          exact
-          path="/profile/:pk"
-          component={routeProps => <ProfileDetailsContainer {...routeProps} />}
-        />
       </Switch>
     );
   }

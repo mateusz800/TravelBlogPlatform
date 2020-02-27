@@ -32,6 +32,17 @@ def story_details(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def author_stories(request, author_pk):
+    """
+    View that returns a list of stories created by the author with given pk
+    """
+    drafts = Story.objects.filter(author=author_pk)
+    drafts_serializer = ArticleSerializer(
+        drafts, context={'request': request}, many=True)
+    return Response({'drafts': drafts_serializer.data})
+
+
 @api_view(['POST'])
 def add_story(request):
     """
@@ -40,7 +51,6 @@ def add_story(request):
     try:
         pk = request.data['pk']
         story = Story.objects.get(pk=pk)
-        print(request.data)
         serializer = GeneralArticleSerializer(story, data=request.data)
     except KeyError:
         # data has not pk attribute (story not exist)
@@ -48,5 +58,4 @@ def add_story(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

@@ -1,0 +1,35 @@
+.menu{
+    width:calc(100% - 25x);
+    display:flex;
+    height:30px;
+    padding:5px;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom:40px;
+}
+.menu h4{
+    margin-left:20px;
+}
+.avatar{
+    position: relative;
+    top:-5px;
+    display:inline;
+    z-index: 1;
+}
+.container{
+    padding-left:20px;
+    padding-right:20px;
+}
+.options{
+    justify-self: right;
+    z-index:999999;
+}
+.bgPhotoInput{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    margin-top:-20px;
+    position: relative;
+    z-index:1;
+    bottom:calc(20vh - 20px);
+}

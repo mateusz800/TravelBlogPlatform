@@ -24,6 +24,11 @@ function profileReducer(state = [], action) {
         is_authenticated: false,
         user_pk: null
       }
+    case profileActions.SET_UPLOADED_PHOTOT_TYPE:
+      return {
+        ...state,
+        updatedPhotoType: action.payload
+      }
     default:
       return state;
   }

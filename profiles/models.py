@@ -6,6 +6,7 @@ from media.models import Photo
 class Profile(models.Model):
     user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     photo = models.ForeignKey(Photo, on_delete=models.SET_NULL, blank=True, null=True)
+    background_photo = models.ForeignKey(Photo, on_delete=models.SET_NULL, blank=True, null=True, related_name='background_photo')
 
     def __str__(self):
         return self.user.get_full_name()

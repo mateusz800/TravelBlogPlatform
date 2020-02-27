@@ -28,6 +28,16 @@ function storiesReducer(state = initialState, action) {
         ...state,
         currentStory: action.payload
       }
+    case storyActions.GET_USER_STORIES:
+      return {
+        ...state,
+        userStories: action.payload
+      }
+    case storyActions.RESET_CURRENT_STORY:
+      return {
+        ...state,
+        currentStory: undefined
+      }
     default:
       return state;
   }

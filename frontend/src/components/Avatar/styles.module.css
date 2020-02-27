@@ -2,5 +2,6 @@
     border-radius:50%;
     background-size: contain !important;
     background-position:center !important;
+    background-repeat: no-repeat !important;
     margin:5px;
 }

@@ -5,7 +5,7 @@ import Image from "../Image/Image";
 import Author from "../Author/Author";
 import styles from "./styles.module.css";
 
-const StoryDetails = ({ story }) => {
+const StoryDetails = ({ story, owner }) => {
   const content = useRef(null);
   return (
     <div>
@@ -13,6 +13,7 @@ const StoryDetails = ({ story }) => {
         <Image src={story.photo.source} height="95vh" brightness={50} />
       )}
       <div className={styles.info}>
+        {owner && <Link to={`/story/${story.pk}/edit`}><button>edit</button></Link>}
         <h1>{story.title}</h1>
         <h3>{story.subtitle}</h3>
         <div className={styles.authorDate}>

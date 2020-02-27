@@ -7,7 +7,7 @@ const Info = ({ author, date, title, subtitle }) => (
   <Fragment>
     {(author || date) && (
       <div className={styles.details}>
-        {author && <Author name={author.name} image={author.photo.source || null} />}
+        {author && <Author name={author.name} image={author.profile_photo.source || null} />}
         {date && <h5 className={styles.date}>{date}</h5>}
       </div>
     )}

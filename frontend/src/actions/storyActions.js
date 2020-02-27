@@ -2,9 +2,18 @@ import axios from "axios";
 import { storyActions } from "./types";
 import store from "../store";
 
-export const getArticles = () => dispatch => {
+export const getStories = () => dispatch => {
   axios.get("/api/stories").then(res => {
     updateStoriesListData(res.data, dispatch);
+  });
+};
+
+export const getUserStories = profilePK => dispatch => {
+  axios.get(`/api/stories/profile/${profilePK}`).then(res => {
+    dispatch({
+      type: storyActions.GET_USER_STORIES,
+      payload: res.data
+    });
   });
 };
 
@@ -65,6 +74,11 @@ export const addStory = data => dispatch => {
     });
 };
 
+export const resetCurrentStory = () => {
+  return {
+    type: storyActions.RESET_CURRENT_STORY
+  };
+};
 function updateStoriesListData(data, dispatch) {
   dispatch({
     type: storyActions.GET_STORY,
