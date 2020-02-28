@@ -61,6 +61,7 @@ class StoryHeaderForm extends Component {
             name="subtitle"
             type="text"
             placeholder="subtitle"
+            value={this.state.subtitle}
             onChange={this.handleChange}
           />
           <input name="photo" type="file" onChange={this.handleChange} />

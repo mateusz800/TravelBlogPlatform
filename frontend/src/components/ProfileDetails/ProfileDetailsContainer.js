@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getProfile, changeBackgroundPhoto, changeProfilePhoto } from "../../actions/profileActions";
+import {
+  getProfile,
+  changeBackgroundPhoto,
+  changeProfilePhoto
+} from "../../actions/profileActions";
 import ProfileDetails from "./ProfileDetails";
 import StoryList from "../StoryList/StoryList";
 import { getUserStories } from "../../actions/storyActions";
@@ -10,29 +14,41 @@ import SettingsForm from "./SettingsForm";
 class ProfileDetailsContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedUserProfile: false };
+    this.state = { loggedUserProfile: false, pk: null };
   }
   componentDidMount() {
     const { pk } = this.props.match.params;
     if (pk) {
       if (this.props.userPK == pk) {
-        this.setState({ loggedUserProfile: true });
+        this.setState({ loggedUserProfile: true, pk: pk });
       }
       this.props.loadProfileData(pk);
       this.props.loadStoriesData(pk);
     }
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props.page === "settings" && prevProps.newPhoto != this.props.newPhoto){
-      const {profileUpdatedPhoto} = this.props;
-      console.log(profileUpdatedPhoto);
-      if(profileUpdatedPhoto ===  "backgroundPhoto"){
-  
-        this.props.changeBackgroundPhoto(this.props.userPK, this.props.newPhoto.pk)
-      }
-      else if(profileUpdatedPhoto === "profilePhoto"){
-        this.props.changeProfilePhoto(this.props.userPK, this.props.newPhoto.pk)
+  componentDidUpdate(prevProps) {
+    const { pk } = this.props.match.params;
+    if (pk != null && pk != this.state.pk) {
+      this.setState({pk:pk});
+      this.props.loadProfileData(pk);
+      this.props.loadStoriesData(pk);
+    }
+    if (
+      this.props.page === "settings" &&
+      prevProps.newPhoto != this.props.newPhoto
+    ) {
+      const { profileUpdatedPhoto } = this.props;
+      if (profileUpdatedPhoto === "backgroundPhoto") {
+        this.props.changeBackgroundPhoto(
+          this.props.userPK,
+          this.props.newPhoto.pk
+        );
+      } else if (profileUpdatedPhoto === "profilePhoto") {
+        this.props.changeProfilePhoto(
+          this.props.userPK,
+          this.props.newPhoto.pk
+        );
       }
     }
   }
@@ -65,8 +81,10 @@ function mapDispatchToProps(dispatch) {
   return {
     loadProfileData: pk => dispatch(getProfile(pk)),
     loadStoriesData: pk => dispatch(getUserStories(pk)),
-    changeBackgroundPhoto: (userPK, photoPK) => dispatch(changeBackgroundPhoto(userPK, photoPK)),
-    changeProfilePhoto: (userPK, photoPK) => dispatch(changeProfilePhoto(userPK, photoPK))
+    changeBackgroundPhoto: (userPK, photoPK) =>
+      dispatch(changeBackgroundPhoto(userPK, photoPK)),
+    changeProfilePhoto: (userPK, photoPK) =>
+      dispatch(changeProfilePhoto(userPK, photoPK))
   };
 }
 

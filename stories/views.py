@@ -17,7 +17,7 @@ class StoryList(generics.ListCreateAPIView):
     """
     search_fields = ['title']
     filter_backends = (filters.SearchFilter,)
-    queryset = Story.objects.all()
+    queryset = Story.objects.all().filter(status='published')
     serializer_class = ArticleSerializer
 
 
@@ -58,4 +58,5 @@ def add_story(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
+    print(serializer.errors)
     return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

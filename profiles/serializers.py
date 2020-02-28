@@ -26,9 +26,12 @@ class ProfileSerializer(serializers.Serializer):
         return obj.user.get_full_name()
 
     def get_profile_photo(self, obj):
-        serializer = PhotoSerializer(
-            obj.photo, context={'request': self.context['request']})
-        return serializer.data
+        if obj.photo:
+            serializer = PhotoSerializer(
+                obj.photo, context={'request': self.context['request']})
+            return serializer.data
+        # default profile photo
+        return {'source': 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80'}
     
     def get_background_photo(self, obj):
         serializer = PhotoSerializer(

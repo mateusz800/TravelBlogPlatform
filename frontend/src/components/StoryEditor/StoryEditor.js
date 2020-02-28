@@ -6,10 +6,16 @@ import "../../../node_modules/medium-draft/lib/index.css";
 import styles from "./styles.module.css";
 import { Editor, createEditorState, EditorState } from "medium-draft";
 import mediumDraftImporter from "medium-draft/lib/importer";
-import { getStory, addStory, resetCurrentStory } from "../../actions/storyActions";
+import {
+  getStory,
+  addStory,
+  resetCurrentStory
+} from "../../actions/storyActions";
 import StoryHeaderForm from "./StoryHeaderForm/StoryHeaderForm";
 
 class StoryEditor extends React.Component {
+  statusCheckbox = null;
+
   constructor(props) {
     super(props);
     this.state = { editorState: createEditorState() };
@@ -24,10 +30,15 @@ class StoryEditor extends React.Component {
     const { pk } = this.props.match.params;
     if (pk) {
       this.props.loadData(pk);
-    }
-    else{
+    } else {
       this.props.resetData();
     }
+    if (this.props.story && this.props.story.status) {
+      if (this.props.story.status === "published") {
+        this.statusCheckbox.checked = true;
+      }
+    }
+
     this.refsEditor.current.focus();
   }
 
@@ -37,9 +48,17 @@ class StoryEditor extends React.Component {
         editorState: createEditorState(
           convertToRaw(mediumDraftImporter(this.props.story.body))
         ),
-        title:this.props.story.title,
-        subtitle:this.props.subtitle
+        title: this.props.story.title,
+        subtitle: this.props.subtitle
       });
+      if (
+        !prevProps.story ||
+        this.props.story.status != prevProps.story.status
+      ) {
+        this.setState({ status: this.props.story.status });
+        if (this.props.story.status === "published")
+          this.statusCheckbox.checked = true;
+      }
     }
   }
 
@@ -59,10 +78,11 @@ class StoryEditor extends React.Component {
       subtitle: this.state.subtitle,
       body: renderedHTML,
       author: 1,
-      photo: this.state.photo
+      photo: this.state.photo,
+      status: this.state.status ? this.state.status : "Draft"
     };
-    if(this.props.story){
-      data['pk'] = this.props.story.pk
+    if (this.props.story) {
+      data["pk"] = this.props.story.pk;
     }
     this.props.addStory(data);
   }
@@ -74,13 +94,29 @@ class StoryEditor extends React.Component {
         {this.props.story && this.props.story.photo && (
           <StoryHeaderForm
             title={this.props.story.title}
+            subtitle={this.props.story.subtitle}
             updateData={this.getData}
             photo={this.props.story.photo.source}
           />
         )}
         {!this.props.story && <StoryHeaderForm updateData={this.getData} />}
+        <button onClick={this.save}>Save</button>
+        <label for="status">Publish</label>
+        <input
+          type="checkbox"
+          name="status"
+          value="published"
+          onChange={e => {
+            this.setState({
+              status: this.state.status === "draft" ? "published" : "draft"
+            });
+          }}
+          defaultChecked={this.state.status === "published" ? true : false}
+          ref={inputRef => {
+            this.statusCheckbox = inputRef;
+          }}
+        />
         <div className={styles.editor}>
-          <button onClick={this.save}>Save</button>
           <Editor
             ref={this.refsEditor}
             editorState={editorState}
@@ -94,7 +130,7 @@ class StoryEditor extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    story: state.stories.currentStory,
+    story: state.stories.currentStory
   };
 }
 

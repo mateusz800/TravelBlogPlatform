@@ -52,8 +52,10 @@ export const searchStoriesOnPage = (keywords, page) => dispatch => {
 export const addStory = data => dispatch => {
   let postData = {
     title: data.title,
+    subtitle:data.subtitle,
     body: data.body,
-    author: store.getState().profiles.user_pk
+    author: store.getState().profiles.user_pk,
+    status:data.status
   };
   if (data.pk) {
     postData["pk"] = data.pk;
@@ -79,6 +81,7 @@ export const resetCurrentStory = () => {
     type: storyActions.RESET_CURRENT_STORY
   };
 };
+
 function updateStoriesListData(data, dispatch) {
   dispatch({
     type: storyActions.GET_STORY,

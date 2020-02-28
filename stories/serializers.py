@@ -14,7 +14,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = ('pk', 'author', 'title', 'subtitle',
-                  'body', 'published_date', 'photo')
+                  'body', 'published_date', 'photo', 'status')
 
     def get_photo(self, obj):
         if obj.featured_photo:
@@ -40,4 +40,4 @@ class GeneralArticleSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Story
-        fields = ('pk', 'author', 'title', 'subtitle', 'featured_photo','body')
+        fields = ('pk', 'author', 'title', 'subtitle', 'featured_photo','body', 'status')
