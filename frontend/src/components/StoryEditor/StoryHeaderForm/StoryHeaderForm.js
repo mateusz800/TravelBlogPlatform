@@ -3,6 +3,7 @@ import Image from "../../Image/Image";
 import styles from "./styles.module.css";
 import { uploadPhoto } from "../../../actions/mediaActions";
 import { connect } from "react-redux";
+import { photoTypes } from "../../../actions/types";
 
 class StoryHeaderForm extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class StoryHeaderForm extends Component {
   handleChange(e) {
     const name = e.target.name;
     if (name === "photo") {
-      this.props.uploadPhoto(e.target.files[0]);
+      this.props.uploadPhoto(e.target.files[0],photoTypes.STORY_COVER_PHOTO);
       return;
     }
     this.setState({ [name]: e.target.value });
@@ -73,13 +74,13 @@ class StoryHeaderForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    newPhoto: state.media.new_photo
+    newPhoto: state.media[`new_${photoTypes.STORY_COVER_PHOTO}_photo`]
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    uploadPhoto: file => dispatch(uploadPhoto(file))
+    uploadPhoto: (file, type) => dispatch(uploadPhoto(file, type))
   };
 }
 

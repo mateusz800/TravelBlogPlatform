@@ -18,3 +18,11 @@ export const profileActions = {
 export const mediaActions = {
   ADD_NEW_PHOTO: 'ADD_NEW_PHOTO'
 }
+
+
+export const photoTypes = {
+  STORY_PHOTO: 'story',
+  STORY_COVER_PHOTO: 'story_cover',
+  PROFILE_PHOTO: 'profile',
+  PROFILE_BACKGROUND_PHOTO:'profile_background'
+}

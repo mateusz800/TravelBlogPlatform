@@ -12,9 +12,7 @@ class SettingsForm extends Component {
   render() {
     return (
       <form>
-        <input type="text" name="firstName" placeholder="first name" />
-        <input type="text" name="lastName" placeholder="last name" />
-        <input type='submit' value='save'/>
+        
       </form>
     );
   }

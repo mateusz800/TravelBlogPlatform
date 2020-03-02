@@ -10,6 +10,7 @@ import ProfileDetails from "./ProfileDetails";
 import StoryList from "../StoryList/StoryList";
 import { getUserStories } from "../../actions/storyActions";
 import SettingsForm from "./SettingsForm";
+import { photoTypes } from "../../actions/types";
 
 class ProfileDetailsContainer extends Component {
   constructor(props) {
@@ -30,24 +31,25 @@ class ProfileDetailsContainer extends Component {
   componentDidUpdate(prevProps) {
     const { pk } = this.props.match.params;
     if (pk != null && pk != this.state.pk) {
-      this.setState({pk:pk});
+      this.setState({ pk: pk });
       this.props.loadProfileData(pk);
       this.props.loadStoriesData(pk);
     }
     if (
       this.props.page === "settings" &&
-      prevProps.newPhoto != this.props.newPhoto
+      (prevProps.newProfilePhoto != this.props.newProfilePhoto ||
+        prevProps.newBackgroundPhoto != this.props.newBackgroundPhoto)
     ) {
       const { profileUpdatedPhoto } = this.props;
       if (profileUpdatedPhoto === "backgroundPhoto") {
         this.props.changeBackgroundPhoto(
           this.props.userPK,
-          this.props.newPhoto.pk
+          this.props.newBackgroundPhoto.pk
         );
       } else if (profileUpdatedPhoto === "profilePhoto") {
         this.props.changeProfilePhoto(
           this.props.userPK,
-          this.props.newPhoto.pk
+          this.props.newProfilePhoto.pk
         );
       }
     }
@@ -93,7 +95,9 @@ function mapStateToProps(state) {
     profile: state.profiles.profile,
     userStories: state.stories.userStories,
     userPK: state.profiles.user_pk,
-    newPhoto: state.media.new_photo,
+    newProfilePhoto: state.media[`new_${photoTypes.PROFILE_PHOTO}_photo`],
+    newBackgroundPhoto:
+      state.media[`new_${photoTypes.PROFILE_BACKGROUND_PHOTO}_photo`],
     profileUpdatedPhoto: state.profiles.updatedPhotoType
   };
 }

@@ -12,6 +12,7 @@ import {
   setUploadedPhotoType,
   changeBackgroundPhoto
 } from "../../actions/profileActions";
+import { photoTypes } from "../../actions/types";
 
 class ProfileDetails extends Component {
   constructor(props) {
@@ -22,13 +23,13 @@ class ProfileDetails extends Component {
     const name = e.target.name;
     if (name === "backgroundPhoto") {
       if (e.target.files.length > 0) {
-        this.props.uploadPhoto(e.target.files[0]);
+        this.props.uploadPhoto(e.target.files[0], photoTypes.PROFILE_BACKGROUND_PHOTO);
         this.props.setPhotoType("backgroundPhoto");
         return;
       }
     } else if (name === "profilePhoto") {
       if (e.target.files.length > 0) {
-        this.props.uploadPhoto(e.target.files[0]);
+        this.props.uploadPhoto(e.target.files[0], photoTypes.PROFILE_PHOTO);
         this.props.setPhotoType("profilePhoto");
         return;
       }
@@ -92,7 +93,7 @@ class ProfileDetails extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    uploadPhoto: file => dispatch(uploadPhoto(file)),
+    uploadPhoto: (file, type) => dispatch(uploadPhoto(file, type)),
     setPhotoType: type => dispatch(setUploadedPhotoType(type))
   };
 }
