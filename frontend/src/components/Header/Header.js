@@ -14,6 +14,7 @@ const Header = ({ is_authenticated, logout, profilePK }) => (
         <Link to="/login">login</Link>
       </Fragment>
     )}
+    
     {is_authenticated && (
       <Fragment>
         <Link to={`/profile/${profilePK}`}>profile</Link>
