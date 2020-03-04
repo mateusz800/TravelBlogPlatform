@@ -2,7 +2,7 @@
 A website that allows registered user to create stories and make them visible to everyone.
 
 ### Running project
-1. Clonning project ```https://github.com/mateusz800/blog```
+1. Clonning project ```git clone https://github.com/mateusz800/blog```
 2. ``` cd ``` into project folder
 4. Creating virtual environment ```virtualenv venv```
 5. Activating venv ```source venv/bin/activate```
