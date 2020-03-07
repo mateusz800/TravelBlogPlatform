@@ -9,5 +9,10 @@
 .editor .md-editor-toolbar{
   background: black !important;
 }
+.image{
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
 
   

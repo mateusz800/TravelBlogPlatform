@@ -1,14 +1,6 @@
-import React, { Component } from "react";
-import {
-  ImageSideButton,
-  Block,
-  addNewBlock,
-  createEditorState,
-  Editor
-} from "medium-draft";
+import { ImageSideButton, Block, addNewBlock } from "medium-draft";
 import { uploadPhoto, uploadPhotoFn } from "../../../actions/mediaActions";
 import { connect } from "react-redux";
-import { photoTypes } from "../../../actions/types";
 import "isomorphic-fetch";
 
 class CustomImageSideButton extends ImageSideButton {

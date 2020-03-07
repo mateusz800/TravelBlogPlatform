@@ -1,11 +1,23 @@
 import React, { Fragment } from "react";
 import { stateToHTML } from "draft-js-export-html";
-import { convertToRaw, convertFromHTML } from "draft-js";
+import {
+  convertToRaw,
+  convertFromHTML,
+  EditorState,
+  ContentState,
+  CompositeDecorator
+} from "draft-js";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "../../../node_modules/medium-draft/lib/index.css";
 import styles from "./styles.module.css";
-import { Editor, createEditorState, RenderMap, Block } from "medium-draft";
+import {
+  Editor,
+  createEditorState,
+  RenderMap,
+  Block,
+  editorState
+} from "medium-draft";
 import mediumDraftImporter from "medium-draft/lib/importer";
 import mediumDraftExporter from "medium-draft/lib/exporter";
 import {
@@ -17,19 +29,19 @@ import StoryHeaderForm from "./StoryHeaderForm/StoryHeaderForm";
 import CustomImageSideButton from "./SideButtons/CustomImageSideButton";
 import { photoTypes } from "../../actions/types";
 import { convertToHTML } from "draft-convert";
+import { stateFromHTML } from "draft-js-import-html";
 
 class StoryEditor extends React.Component {
   statusCheckbox = null;
   rendererOptions = {
     blockRenderers: {
-      atomic: block => {
-        const data = block.getData();
-        const src = data.get("src");
-        return "<div>" + src + "</div>";
+      [Block.IMAGE]: block => {
+        const src = block.getData()._root.entries[0][1];
+        return `<div style='width:100%; display:flex; justify-content:center'><img src="${src}"/></div>`;
       }
-    },
-    defaultBlockTag: "div"
+    }
   };
+
   sideButtons = [
     {
       title: "Image",
@@ -57,6 +69,7 @@ class StoryEditor extends React.Component {
     }
 
     if (this.props.story && this.props.story.status) {
+      this.setState({ status: this.props.story.status });
       if (this.props.story.status === "published") {
         // updating checkbox that inform if the author want to make story public
         this.statusCheckbox.checked = true;
@@ -68,11 +81,18 @@ class StoryEditor extends React.Component {
   componentDidUpdate(prevProps) {
     // showing data of a existing story
     if (this.props.story && this.props.story != prevProps.story) {
-      console.log(convertToRaw(mediumDraftImporter(this.props.story.body)));
+      console.log(stateFromHTML(this.props.story.body));
+      const blocksFromHTML = convertFromHTML(this.props.story.body);
+      const state = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
       this.setState({
-        editorState: createEditorState(
+        /*editorState: createEditorState(
           convertToRaw(mediumDraftImporter(this.props.story.body))
         ),
+        */
+        editorState: EditorState.createWithContent(state),
         title: this.props.story.title,
         subtitle: this.props.subtitle
       });
@@ -99,24 +119,17 @@ class StoryEditor extends React.Component {
   }
 
   getData(name, value) {
+    // get data from StoryHeaderForm components
     this.setState({ [name]: value });
   }
 
   save() {
     const editorState = this.state.editorState;
-    /*
-    const renderedHTML = mediumDraftExporter(
+    const renderedHTML = stateToHTML(
       editorState.getCurrentContent(),
+      this.rendererOptions
     );
-    */
-    const renderedHTML = stateToHTML(editorState.getCurrentContent(), {
-      blockRenderers: {
-        [Block.IMAGE]: (block) => {
-          const src = block.getData()._root.entries[0][1];
-          return `<img src="${src}"/>`
-        },
-      }
-    });
+    console.log("ok");
     console.log(renderedHTML);
     let data = {
       title: this.state.title,
@@ -137,6 +150,7 @@ class StoryEditor extends React.Component {
     if (!authorized) {
       return <Redirect to="/404" />;
     }
+    console.log(this.state.status);
     return (
       <Fragment>
         {this.props.story && this.props.story.photo && (
@@ -155,9 +169,11 @@ class StoryEditor extends React.Component {
           name="status"
           value="published"
           onChange={e => {
-            this.setState({
-              status: this.state.status === "draft" ? "published" : "draft"
-            });
+            if (this.state.status) {
+              this.setState({
+                status: this.state.status === "draft" ? "published" : "draft"
+              });
+            }
           }}
           defaultChecked={this.state.status === "published" ? true : false}
           ref={inputRef => {
