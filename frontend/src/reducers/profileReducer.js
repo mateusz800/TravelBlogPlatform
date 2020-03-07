@@ -1,6 +1,10 @@
 import { profileActions } from "../actions/types";
 
-function profileReducer(state = [], action) {
+const initialState = {
+  is_authenticated: false
+}
+
+function profileReducer(state = initialState, action) {
   switch (action.type) {
     case profileActions.GET_PROFILE:
       return {
