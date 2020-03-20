@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../../actions/profileActions";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
-const UserMenu = ({ logout, profilePK, visible, isAuthenticated }) => {
-  if ((profilePK || !isAuthenticated) && visible) {
+const UserMenu = ({ logout, profilePK, isAuthenticated }) => {
+  if (profilePK || !isAuthenticated) {
     return (
       <div className={styles.menu}>
         {isAuthenticated ===false && (

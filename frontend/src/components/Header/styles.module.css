@@ -22,4 +22,19 @@
 .header nav > *{
     margin-right:10px;
 }
-
+.header nav > .userBtn:hover + .menu{
+    display:flex;
+}
+.menu{
+    position:absolute;
+    background-color: #f2f2f2;
+    z-index:1;
+    right:-10px;
+    display:flex;
+    flex-direction: column;
+    padding:20px;
+    display:none;
+}
+.menu:hover{
+    display:flex;
+}

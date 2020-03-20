@@ -14,10 +14,7 @@ const Header = ({ is_authenticated, logout, profilePK }) => {
       </Link>
       <nav>
         <Link to="/stories">stories</Link>
-        <i
-          className="fa fa-user"
-          onClick={() => setUserMenuVisible(!userMenuVisible)}
-        ></i>
+        <span className={styles.userBtn}><i className="fa fa-user"></i></span>
         <UserMenu
           profilePK={profilePK}
           visible={userMenuVisible}
@@ -27,7 +24,5 @@ const Header = ({ is_authenticated, logout, profilePK }) => {
     </header>
   );
 };
-
-
 
 export default Header;

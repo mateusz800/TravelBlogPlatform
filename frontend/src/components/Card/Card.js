@@ -7,7 +7,7 @@ import PlayButton from "../VideoOnHover/PlayButton/PlayButton";
 import Info from "./Info/Info";
 import styles from "./styles.module.css";
 
-const Card = ({ image, title, subtitle, author, date, video, height, children }) => {
+const Card = ({ image, title, subtitle, author, date, video, height, owner, children }) => {
   const [hover, setHover] = useState(false);
 
   function handleHover() {
@@ -34,6 +34,7 @@ const Card = ({ image, title, subtitle, author, date, video, height, children })
         subtitle={subtitle}
       />
       <div className={styles.p}>{children}</div>
+      {owner && <i class="fas fa-trash-alt"></i>}
     </div>
   );
 };
@@ -60,6 +61,10 @@ Card.propTypes = {
    * when video property is set the given image will be a poster of the video.
    */
   image: PropTypes.string,
+  /**
+   * Is the current user owner of the content that the card shows
+   */
+  owner: PropTypes.bool,
   /**
    * Content of the card.
    * Everything that is under title (subtitle).
