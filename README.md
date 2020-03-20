@@ -1,7 +1,9 @@
 
 A website that allows registered user to create stories and make them visible to everyone.
-
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/44299056/76162727-b9ba0a80-6140-11ea-9042-78149747c315.gif)
+<div style="display:flex;">
+<img width="200" alt="Zrzut ekranu 2020-03-19 o 20 25 57" src="https://user-images.githubusercontent.com/44299056/77107205-9fc1d700-6a20-11ea-97c3-8d8ebbed405d.png">
+<img width="400" alt="Zrzut ekranu 2020-03-19 o 20 25 57" src="https://user-images.githubusercontent.com/44299056/77106855-114d5580-6a20-11ea-99a7-1f545924b3f0.png">
+ </div>
 
 ### Running project
 1. Clonning project ```git clone https://github.com/mateusz800/blog```
