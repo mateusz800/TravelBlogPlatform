@@ -1,5 +1,6 @@
 import axios from "axios";
 import { profileActions } from "./types";
+import { loginStatus } from "../messages";
 
 /* get profile data of the user with the given pk
  */
@@ -29,15 +30,31 @@ export const register = (email, password, firstName, lastName) => dispatch => {
  Login user and redirect to the home page
 */
 export const login = (email, password) => dispatch => {
-  axios.post("/api/login", { email: email, password: password }).then(res => {
-    if (res.data["pk"]) {
+  axios
+    .post("/api/login", { email: email, password: password })
+    .then(res => {
+      if (res.data["pk"]) {
+        // success
+        dispatch({
+          type: profileActions.LOGIN,
+          payload: res.data["pk"]
+        });
+        window.location.href = "/";
+      } else {
+        // login failed
+        dispatch({
+          type: profileActions.LOGIN_FAILED,
+          payload: loginStatus.INCORRECT_DATA
+        });
+      }
+    })
+    .catch(error => {
+      // some error with connection occured
       dispatch({
-        type: profileActions.LOGIN,
-        payload: res.data["pk"]
+        type: profileActions.LOGIN_FAILED,
+        payload: loginStatus.ERROR
       });
-      window.location.href = "/";
-    }
-  });
+    });
 };
 
 /*

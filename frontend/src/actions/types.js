@@ -12,7 +12,8 @@ export const profileActions = {
   GET_PROFILE: "GET_PROFILE",
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
-  SET_UPLOADED_PHOTOT_TYPE: 'SET_UPLOADED_PHOTO_TYPE'
+  SET_UPLOADED_PHOTOT_TYPE: 'SET_UPLOADED_PHOTO_TYPE', // during changing profile settings
+  LOGIN_FAILED: 'LOGIN FAILED'
 };
 
 export const mediaActions = {

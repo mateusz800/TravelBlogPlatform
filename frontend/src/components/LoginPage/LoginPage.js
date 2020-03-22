@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom"
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import styles from "./styles.module.css";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -19,9 +21,10 @@ class LoginPage extends Component {
       <div>
         {!showRegisterForm && <LoginForm />}
         {showRegisterForm && <RegisterForm />}
-        <button onClick={this.toogleForm}>
-          {showRegisterForm ? "login" : "register"}
-        </button>
+        <div className={styles.toggleMode}>
+          {showRegisterForm ? "Already have an account? " : "Don't have an account? "}
+            <a onClick={this.toogleForm}>{showRegisterForm ? "login " : "register"}</a>
+        </div>
       </div>
     );
   }

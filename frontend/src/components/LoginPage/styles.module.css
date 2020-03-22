@@ -11,8 +11,22 @@
     align-items: center;
     justify-content: center;
 }
-.form form input{
+.form input{
     margin-bottom:5px;
     padding:5px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+}
+.warning{
+    color:red;
+    position: absolute;
+    margin-top:-75px;
+}
+.toggleMode{
+    text-align: center;
+    margin-top:-20vh;
+}
+.toggleMode a{
+    cursor:pointer;
+    color:blue;
+    text-decoration: underline;
 }

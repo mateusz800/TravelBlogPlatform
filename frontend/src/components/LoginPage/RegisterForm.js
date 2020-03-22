@@ -1,13 +1,22 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { register } from "../../actions/profileActions";
+import InputWarning from "./InputWarning";
+import styles from "./styles.module.css";
 
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password1: "", password2: "" };
+    this.state = {
+      email: "",
+      password1: "",
+      password2: "",
+      passwordsEqual: true
+    };
+    this.passwordLengthWarning = null;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkPasswordsEquality = this.checkPasswordsEquality.bind(this);
   }
   componentDidMount() {
     this.setState({ mounted: true });
@@ -15,6 +24,11 @@ class RegisterForm extends Component {
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value });
+    if (name === "password2") {
+      this.checkPasswordsEquality(this.state.password1, e.target.value);
+    } else if (name === "password1") {
+      this.checkPasswordsEquality(e.target.value, this.state.password2);
+    }
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -28,40 +42,61 @@ class RegisterForm extends Component {
       );
     }
   }
+  checkPasswordsEquality(password1, password2) {
+    if (password2 === "") {
+      this.setState({ passwordsEqual: true });
+    }
+    else if (password1 != password2) {
+      this.setState({ passwordsEqual: false });
+    } else {
+      this.setState({ passwordsEqual: true });
+    }
+  }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={styles.form}>
         <input
           type="email"
           name="email"
           placeholder="email"
           onChange={this.handleChange}
+          required
         />
         <input
           type="text"
           name="firstName"
           placeholder="first name"
           onChange={this.handleChange}
+          required
         />
         <input
           type="text"
           name="lastName"
           placeholder="last name"
           onChange={this.handleChange}
+          required
         />
         <input
           type="password"
           name="password1"
           placeholder="password"
           onChange={this.handleChange}
+          required
         />
-        <input
-          type="password"
-          name="password2"
-          placeholder="repeat password"
-          onChange={this.handleChange}
-        />
-        <input type="submit" />
+        <div>
+          <input
+            type="password"
+            name="password2"
+            placeholder="repeat password"
+            onChange={this.handleChange}
+            required
+          />
+          <InputWarning
+            message="Passwords are not the same"
+            display={!this.state.passwordsEqual}
+          />
+        </div>
+        <input type="submit" value="register" />
       </form>
     );
   }
