@@ -40,7 +40,7 @@ class ArticleListContainer extends Component {
                 <Link to='/stories/page/1'><span>&times;</span></Link>
               </p>
             )}
-            <StoryList stories={this.props.stories} />
+            <StoryList stories={this.props.stories} currentUser={this.props.currentUser} />
           </div>
           <Pagination
             actual={parseInt(this.props.match.params.page) || 1}
@@ -67,7 +67,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     stories: state.stories.stories,
-    storiesCount: state.stories.storiesCount
+    storiesCount: state.stories.storiesCount,
+    currentUser: state.profiles.user_pk
   };
 }
 

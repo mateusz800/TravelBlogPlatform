@@ -71,7 +71,7 @@ class ProfileDetailsContainer extends Component {
           userStories.drafts.length > 0 && (
             <Fragment>
               Drafts
-              <StoryList stories={userStories.drafts} />
+              <StoryList stories={userStories.drafts} currentUser={this.props.userPK} />
             </Fragment>
           )}
       </ProfileDetails>

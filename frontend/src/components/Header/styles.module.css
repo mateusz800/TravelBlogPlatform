@@ -18,6 +18,7 @@
     float:right;
     grid-column-start:col-start 2;
     margin-right:10px;
+    display: flex;
 }
 .header nav > *{
     margin-right:10px;
@@ -25,11 +26,15 @@
 .header nav > .userBtn:hover + .menu{
     display:flex;
 }
+.userBtn{
+    display: inline;
+}
 .menu{
     position:absolute;
     background-color: #f2f2f2;
     z-index:1;
     right:-10px;
+    top:30px;
     display:flex;
     flex-direction: column;
     padding:20px;
@@ -37,4 +42,14 @@
 }
 .menu:hover{
     display:flex;
+}
+
+
+@media only screen and (max-width:500px){
+    .header{
+        display:flex;
+    }
+    .header nav{
+        justify-self: right;
+    }
 }

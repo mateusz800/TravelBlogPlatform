@@ -3,3 +3,12 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.truncuated p:first-of-type{
+    display:block;
+}
+.truncuated p{
+    display:none
+}
+.truncuated figure{
+    display:none;
+}

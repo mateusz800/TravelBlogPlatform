@@ -41,10 +41,13 @@
   .articleList{
     grid-template-columns: 50% 50%;
   }
+  .listContainer{
+    grid-template-columns: 100%;
+  }
 }
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 750px){
   .articleList{
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
   }
   .listContainer{
     grid-template-columns: 75%;

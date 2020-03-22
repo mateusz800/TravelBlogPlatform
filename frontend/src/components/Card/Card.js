@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom'
 import PropTypes from "prop-types";
 import Author from "../Author/Author";
 import Image from "../Image/Image";
@@ -7,7 +8,18 @@ import PlayButton from "../VideoOnHover/PlayButton/PlayButton";
 import Info from "./Info/Info";
 import styles from "./styles.module.css";
 
-const Card = ({ image, title, subtitle, author, date, video, height, owner, children }) => {
+const Card = ({
+  image,
+  title,
+  subtitle,
+  author,
+  date,
+  video,
+  height,
+  owner,
+  pk,
+  children
+}) => {
   const [hover, setHover] = useState(false);
 
   function handleHover() {
@@ -19,22 +31,24 @@ const Card = ({ image, title, subtitle, author, date, video, height, owner, chil
       className={styles.card}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
-      style={height ? {height:height}:{}}
+      style={height ? { height: height } : {}}
     >
       {video && (
         <Video src={video} image={image} muted={true} play={hover} height={200}>
           <PlayButton />
         </Video>
       )}
-      {!video && image && <Image src={image} height={200} effect='zoom-on-hover'/>}
-      <Info
-        author={author}
-        date={date}
-        title={title}
-        subtitle={subtitle}
-      />
+      {!video && image && (
+        <Image src={image} height={200} effect="zoom-on-hover" />
+      )}
+      <Info author={author} date={date} title={title} subtitle={subtitle} />
       <div className={styles.p}>{children}</div>
-      {owner && <i class="fas fa-trash-alt"></i>}
+      {owner && (
+        <div className={styles.options}>
+          <Link to={`/story/${pk}/edit`}><i class="fa fa-edit"></i></Link>
+          <i className="fa fa-trash"></i>
+        </div>
+      )}
     </div>
   );
 };

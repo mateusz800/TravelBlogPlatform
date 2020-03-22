@@ -41,6 +41,12 @@
     padding-left:10%;
     padding-right:10%;
 }
+.content figure {
+    text-align: center;
+}
+.content img{
+    max-height:90vh;
+}
 .authorDate{
     display:flex;
     justify-content: space-evenly;
@@ -57,6 +63,7 @@
     font-size: xx-large;
     font-weight: bold;
 }
+
 .arrowDown{
   border: solid white;
   border-width: 0 6px 6px 0;
