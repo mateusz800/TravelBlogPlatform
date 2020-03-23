@@ -1,9 +1,9 @@
 import { profileActions } from "../actions/types";
-import { loginStatus } from "../messages"
+import { loginStatus } from "../messages";
 
 const initialState = {
   is_authenticated: false
-}
+};
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
@@ -16,30 +16,35 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         is_authenticated: action.payload
-      }
+      };
     case profileActions.LOGIN:
       return {
         ...state,
         is_authenticated: true,
         user_pk: action.payload,
         loginStatus: loginStatus.SUCCESS
-      }
+      };
     case profileActions.LOGIN_FAILED:
       return {
         ...state,
         loginStatus: action.payload
-      }
+      };
+    case profileActions.REGISTER:
+      return {
+        ...state,
+        registerStatus: action.payload
+      };
     case profileActions.LOGOUT:
       return {
         ...state,
         is_authenticated: false,
         user_pk: null
-      }
+      };
     case profileActions.SET_UPLOADED_PHOTOT_TYPE:
       return {
         ...state,
         updatedPhotoType: action.payload
-      }
+      };
     default:
       return state;
   }

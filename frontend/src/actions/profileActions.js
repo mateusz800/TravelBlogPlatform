@@ -1,8 +1,9 @@
 import axios from "axios";
 import { profileActions } from "./types";
-import { loginStatus } from "../messages";
+import { loginStatus, registerStatus } from "../messages";
 
-/* get profile data of the user with the given pk
+/* 
+Get profile data of the user with the given pk.
  */
 export const getProfile = pk => dispatch => {
   axios.get(`/api/profile/${pk}`).then(res => {
@@ -13,6 +14,9 @@ export const getProfile = pk => dispatch => {
   });
 };
 
+/*
+Register new user.
+*/
 export const register = (email, password, firstName, lastName) => dispatch => {
   axios
     .post("/api/register", {
@@ -22,12 +26,31 @@ export const register = (email, password, firstName, lastName) => dispatch => {
       last_name: lastName
     })
     .then(res => {
-      console.log(res.data);
+      const status = res.data.status;
+      let message;
+      switch (status) {
+        case 0:
+          message = registerStatus.ALREADY_EXIST;
+          break;
+        case 1:
+          message = registerStatus.SUCCESS;
+          break;
+      }
+      dispatch({
+        type: profileActions.REGISTER,
+        payload: message
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: profileActions.REGISTER,
+        payload: "An error accured"
+      });
     });
 };
 
 /*
- Login user and redirect to the home page
+ Login user and redirect to the home page.
 */
 export const login = (email, password) => dispatch => {
   axios

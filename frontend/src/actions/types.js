@@ -13,7 +13,8 @@ export const profileActions = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   SET_UPLOADED_PHOTOT_TYPE: 'SET_UPLOADED_PHOTO_TYPE', // during changing profile settings
-  LOGIN_FAILED: 'LOGIN FAILED'
+  LOGIN_FAILED: 'LOGIN FAILED',
+  REGISTER: 'REGISTER' // set the state of registration status
 };
 
 export const mediaActions = {

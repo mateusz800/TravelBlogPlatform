@@ -33,7 +33,6 @@ class RegisterForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
-      console.log(this.state);
       this.props.submit(
         this.state.email,
         this.state.password1,
@@ -43,6 +42,7 @@ class RegisterForm extends Component {
     }
   }
   checkPasswordsEquality(password1, password2) {
+    // Check if given passwords are the same.
     if (password2 === "") {
       this.setState({ passwordsEqual: true });
     }
@@ -55,6 +55,7 @@ class RegisterForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className={styles.form}>
+        <h5 className={styles.warning}>{this.props.status || " "}</h5>
         <input
           type="email"
           name="email"
@@ -102,6 +103,12 @@ class RegisterForm extends Component {
   }
 }
 
+function mapStateToProps(state){
+  return {
+    status: state.profiles.registerStatus
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     submit: (email, password, firstName, lastName) =>
@@ -109,4 +116,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

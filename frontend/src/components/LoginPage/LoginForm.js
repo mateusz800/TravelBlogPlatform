@@ -25,7 +25,7 @@ class LoginForm extends Component {
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit} className={styles.form}>
-          <h5 className={styles.warning}>{this.props.loginStatus}</h5>
+          <h5 className={styles.warning}>{this.props.loginStatus || " "}</h5>
           <input
             type="text"
             name="email"
