@@ -45,6 +45,12 @@ function profileReducer(state = initialState, action) {
         ...state,
         updatedPhotoType: action.payload
       };
+    case profileActions.RESET_LOGIN_MESSAGES:
+      return {
+        ...state,
+        registerStatus: null,
+        loginStatus: null
+      }
     default:
       return state;
   }

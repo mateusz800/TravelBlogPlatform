@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { register } from "../../actions/profileActions";
+import { register, resetLoginStatusMessages } from "../../actions/profileActions";
 import InputWarning from "./InputWarning";
 import styles from "./styles.module.css";
 
@@ -13,6 +13,7 @@ class RegisterForm extends Component {
       password2: "",
       passwordsEqual: true
     };
+    props.clearMessages();
     this.passwordLengthWarning = null;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -112,7 +113,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return {
     submit: (email, password, firstName, lastName) =>
-      dispatch(register(email, password, firstName, lastName))
+      dispatch(register(email, password, firstName, lastName)),
+    clearMessages: () => dispatch(resetLoginStatusMessages())
   };
 }
 

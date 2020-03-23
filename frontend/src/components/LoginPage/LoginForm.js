@@ -1,13 +1,17 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { login } from "../../actions/profileActions";
+import { login, resetLoginStatusMessages } from "../../actions/profileActions";
 import styles from "./styles.module.css";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    props.clearMessages();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidUpdate(){
+    this.props.clearMessages();
   }
 
   handleChange(e) {
@@ -47,7 +51,8 @@ class LoginForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: (email, password) => dispatch(login(email, password))
+    login: (email, password) => dispatch(login(email, password)),
+    clearMessages: () => dispatch(resetLoginStatusMessages())
   };
 }
 

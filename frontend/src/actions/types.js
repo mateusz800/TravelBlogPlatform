@@ -14,7 +14,9 @@ export const profileActions = {
   LOGOUT: 'LOGOUT',
   SET_UPLOADED_PHOTOT_TYPE: 'SET_UPLOADED_PHOTO_TYPE', // during changing profile settings
   LOGIN_FAILED: 'LOGIN FAILED',
-  REGISTER: 'REGISTER' // set the state of registration status
+  REGISTER: 'REGISTER', // set the state of registration status
+  RESET_LOGIN_MESSAGES: 'RESET_LOGIN_MESSAGES', // clear all messages about login on register status
+
 };
 
 export const mediaActions = {

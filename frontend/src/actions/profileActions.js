@@ -149,3 +149,12 @@ export const changeProfilePhoto = (userPK, photoPK) => dispatch => {
       });
     });
 };
+
+/*
+Clear all messages about login or register status
+*/
+export const resetLoginStatusMessages = () => {
+  return {
+    type: profileActions.RESET_LOGIN_MESSAGES
+  };
+};
