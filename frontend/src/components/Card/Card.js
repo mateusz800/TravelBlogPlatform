@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Author from "../Author/Author";
 import Image from "../Image/Image";
@@ -7,6 +7,8 @@ import Video from "../VideoOnHover/Video";
 import PlayButton from "../VideoOnHover/PlayButton/PlayButton";
 import Info from "./Info/Info";
 import styles from "./styles.module.css";
+import { removeStory } from "../../actions/storyActions";
+import { connect } from "react-redux";
 
 const Card = ({
   image,
@@ -18,6 +20,7 @@ const Card = ({
   height,
   owner,
   pk,
+  remove,
   children
 }) => {
   const [hover, setHover] = useState(false);
@@ -45,13 +48,30 @@ const Card = ({
       <div className={styles.p}>{children}</div>
       {owner && (
         <div className={styles.options}>
-          <Link to={`/story/${pk}/edit`}><i className="fa fa-edit"></i></Link>
-          <i className="fa fa-trash"></i>
+          <Link to={`/story/${pk}/edit`}>
+            <i className="fa fa-edit"></i>
+          </Link>
+          <div
+            onClick={e => {
+              e.preventDefault();
+              remove(pk);
+            }}
+            style={{ display: "inline" }}
+          >
+            {" "}
+            <i className="fa fa-trash"></i>
+          </div>
         </div>
       )}
     </div>
   );
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    remove: pk => dispatch(removeStory(pk))
+  };
+}
 
 Card.propTypes = {
   /**
@@ -63,7 +83,7 @@ Card.propTypes = {
    */
   subtitle: PropTypes.string,
   /**
-   * Author object containing parameters such as name, profile_photo (object with source param) 
+   * Author object containing parameters such as name, profile_photo (object with source param)
    */
   author: PropTypes.object,
   /**
@@ -86,4 +106,4 @@ Card.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
 };
 
-export default Card;
+export default connect(null, mapDispatchToProps)(Card);

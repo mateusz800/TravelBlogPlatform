@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
 from rest_framework import filters, generics
@@ -33,16 +34,19 @@ def story_details(request, pk):
 
 
 @api_view(['GET'])
-def author_stories(request, author_pk):
+def author_stories(request, author_pk, drafts=False):
     """
     View that returns a list of stories created by the author with given pk
     """
-    drafts = Story.objects.filter(author=author_pk)
-    drafts_serializer = ArticleSerializer(
-        drafts, context={'request': request}, many=True)
-    return Response({'drafts': drafts_serializer.data})
+    status = 'draft' if drafts == True else 'published'
+
+    stories = Story.objects.filter(author=author_pk, status=status)
+    stories_serializer = ArticleSerializer(
+        stories, context={'request': request}, many=True)
+    return Response({'stories': stories_serializer.data})
 
 
+@login_required
 @api_view(['POST'])
 def add_story(request):
     """
@@ -60,3 +64,17 @@ def add_story(request):
         return Response(serializer.data, status=HTTP_201_CREATED)
     print(serializer.errors)
     return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+@login_required
+@api_view(['GET'])
+def remove_story(request, story_pk):
+    """
+    Check if the logged user is the author of the content if so remove story from database
+    """
+    print('ok')
+    user = request.user.pk
+    story = Story.objects.get(pk=story_pk)
+    if story.author.pk == user:
+        story.delete()
+    return Response({'status': 'removed'})

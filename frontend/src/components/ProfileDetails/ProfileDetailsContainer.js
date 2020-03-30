@@ -1,19 +1,18 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import ItemsCarousel from "react-items-carousel";
 import {
   getProfile,
   changeBackgroundPhoto,
   changeProfilePhoto
 } from "../../actions/profileActions";
 import ProfileDetails from "./ProfileDetails";
-import StoryList from "../StoryLists/StoryList";
-import { getUserStories } from "../../actions/storyActions";
+import {
+  getUserStories,
+  getUserDraftStories
+} from "../../actions/storyActions";
 import SettingsForm from "./SettingsForm";
 import { photoTypes } from "../../actions/types";
-import Card from "../Card/Card";
-import TruncuatedText from "../TruncuatedText/TruncuatedText";
 import StorySlider from "../StoryLists/StorySlider";
 
 class ProfileDetailsContainer extends Component {
@@ -28,7 +27,8 @@ class ProfileDetailsContainer extends Component {
         this.setState({ loggedUserProfile: true, pk: pk });
       }
       this.props.loadProfileData(pk);
-      this.props.loadStoriesData(pk);
+      this.props.loadPublishedStoriesData(pk);
+      this.props.loadDraftStoriesData(pk);
     }
   }
 
@@ -37,7 +37,8 @@ class ProfileDetailsContainer extends Component {
     if (pk != null && pk != this.state.pk) {
       this.setState({ pk: pk });
       this.props.loadProfileData(pk);
-      this.props.loadStoriesData(pk);
+      this.props.loadPublishedStoriesData(pk);
+      this.props.loadDraftStoriesData(pk);
     }
     if (
       this.props.page === "settings" &&
@@ -60,7 +61,7 @@ class ProfileDetailsContainer extends Component {
   }
 
   render() {
-    const { profile, userStories, page } = this.props;
+    const { profile, userStories, userDraftStories, page, userPK } = this.props;
     return (
       <ProfileDetails
         profile={profile}
@@ -69,15 +70,21 @@ class ProfileDetailsContainer extends Component {
         page={page}
       >
         {page === "settings" && <SettingsForm />}
-        {page === "main" && userStories && this.state.loggedUserProfile && (
+        {page === "main"  && (
           <Fragment>
-            {userStories.drafts.length > 0 && (
+            {this.state.loggedUserProfile && userDraftStories && userDraftStories.length > 0 && (
               <div>
-                Drafts:
-                <StorySlider stories={userStories.drafts} />
+                <h3>Drafts:</h3>
+                <StorySlider stories={userDraftStories} />
               </div>
             )}
             {/*to fo published */}
+            {userStories && userStories.length > 0 && (
+              <div>
+                {(userPK && userPK == userStories[0].author.pk) ? <h3>Published:</h3>: <h3>Stories:</h3>}
+                <StorySlider stories={userStories} />
+              </div>
+            )}
           </Fragment>
         )}
       </ProfileDetails>
@@ -88,7 +95,8 @@ class ProfileDetailsContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     loadProfileData: pk => dispatch(getProfile(pk)),
-    loadStoriesData: pk => dispatch(getUserStories(pk)),
+    loadPublishedStoriesData: pk => dispatch(getUserStories(pk)),
+    loadDraftStoriesData: pk => dispatch(getUserDraftStories(pk)),
     changeBackgroundPhoto: (userPK, photoPK) =>
       dispatch(changeBackgroundPhoto(userPK, photoPK)),
     changeProfilePhoto: (userPK, photoPK) =>
@@ -100,6 +108,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profiles.profile,
     userStories: state.stories.userStories,
+    userDraftStories: state.stories.userDrafts,
     userPK: state.profiles.user_pk,
     newProfilePhoto: state.media[`new_${photoTypes.PROFILE_PHOTO}_photo`],
     newBackgroundPhoto:
