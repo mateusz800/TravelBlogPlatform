@@ -26,7 +26,6 @@ class StoryEditor extends React.Component {
       }
     }
   };
-
   sideButtons = [
     {
       title: "Image",
@@ -100,7 +99,9 @@ class StoryEditor extends React.Component {
 
   save() {
     const editorState = this.state.editorState;
+    console.log('ok');
     const renderedHTML = mediumDraftExporter(editorState.getCurrentContent());
+    console.log(renderedHTML);
     let data = {
       title: this.state.title,
       subtitle: this.state.subtitle,

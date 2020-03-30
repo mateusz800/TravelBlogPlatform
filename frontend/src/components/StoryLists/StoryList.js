@@ -47,7 +47,10 @@ const StoryList = ({ stories, currentUser }) => {
 };
 
 StoryList.propTypes = {
-  stories: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
+  /* List of stories */
+  stories: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  /* Primary key of user that browse the list (logged user). */
+  currentUser: PropTypes.bool
 };
-
+  
 export default StoryList;

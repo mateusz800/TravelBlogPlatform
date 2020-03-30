@@ -10,6 +10,10 @@
   flex: auto;
   align-self: center;
 }
+.articleList a{
+  text-decoration: none;
+  color:black;
+}
 .emptyList{
   width:100%;
   text-align: center;

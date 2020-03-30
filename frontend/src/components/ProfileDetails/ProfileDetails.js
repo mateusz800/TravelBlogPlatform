@@ -1,10 +1,11 @@
 import React, { Fragment, Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+
 import Image from "../Image/Image";
 import Avatar from "../Avatar/Avatar";
 import { connect } from "react-redux";
-import StoryList from "../StoryList/StoryList";
+import StoryList from "../StoryLists/StoryList";
 import styles from "./styles.module.css";
 import { render } from "react-dom";
 import { uploadPhoto } from "../../actions/mediaActions";
@@ -23,7 +24,10 @@ class ProfileDetails extends Component {
     const name = e.target.name;
     if (name === "backgroundPhoto") {
       if (e.target.files.length > 0) {
-        this.props.uploadPhoto(e.target.files[0], photoTypes.PROFILE_BACKGROUND_PHOTO);
+        this.props.uploadPhoto(
+          e.target.files[0],
+          photoTypes.PROFILE_BACKGROUND_PHOTO
+        );
         this.props.setPhotoType("backgroundPhoto");
         return;
       }
@@ -38,7 +42,14 @@ class ProfileDetails extends Component {
     this.props.updateData(name, e.target.value);
   }
   render() {
-    const { profile, stories, loggedUserProfile, page, children } = this.props;
+    const {
+      profile,
+      stories,
+      loggedUserProfile,
+      page,
+      draftStories,
+      children
+    } = this.props;
     if (profile) {
       return (
         <div>
@@ -81,7 +92,9 @@ class ProfileDetails extends Component {
                 onChange={this.handleChange}
               />
             )}
-            {children}
+            <div>
+             {children}
+            </div>
           </div>
         </div>
       );

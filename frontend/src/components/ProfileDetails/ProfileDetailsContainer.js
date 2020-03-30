@@ -1,16 +1,20 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import ItemsCarousel from "react-items-carousel";
 import {
   getProfile,
   changeBackgroundPhoto,
   changeProfilePhoto
 } from "../../actions/profileActions";
 import ProfileDetails from "./ProfileDetails";
-import StoryList from "../StoryList/StoryList";
+import StoryList from "../StoryLists/StoryList";
 import { getUserStories } from "../../actions/storyActions";
 import SettingsForm from "./SettingsForm";
 import { photoTypes } from "../../actions/types";
+import Card from "../Card/Card";
+import TruncuatedText from "../TruncuatedText/TruncuatedText";
+import StorySlider from "../StoryLists/StorySlider";
 
 class ProfileDetailsContainer extends Component {
   constructor(props) {
@@ -65,15 +69,17 @@ class ProfileDetailsContainer extends Component {
         page={page}
       >
         {page === "settings" && <SettingsForm />}
-        {page === "main" &&
-          userStories &&
-          this.state.loggedUserProfile &&
-          userStories.drafts.length > 0 && (
-            <Fragment>
-              Drafts
-              <StoryList stories={userStories.drafts} currentUser={this.props.userPK} />
-            </Fragment>
-          )}
+        {page === "main" && userStories && this.state.loggedUserProfile && (
+          <Fragment>
+            {userStories.drafts.length > 0 && (
+              <div>
+                Drafts:
+                <StorySlider stories={userStories.drafts} />
+              </div>
+            )}
+            {/*to fo published */}
+          </Fragment>
+        )}
       </ProfileDetails>
     );
   }

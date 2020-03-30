@@ -45,7 +45,7 @@ const Card = ({
       <div className={styles.p}>{children}</div>
       {owner && (
         <div className={styles.options}>
-          <Link to={`/story/${pk}/edit`}><i class="fa fa-edit"></i></Link>
+          <Link to={`/story/${pk}/edit`}><i className="fa fa-edit"></i></Link>
           <i className="fa fa-trash"></i>
         </div>
       )}
@@ -63,11 +63,11 @@ Card.propTypes = {
    */
   subtitle: PropTypes.string,
   /**
-   * Author of the story
+   * Author object containing parameters such as name, profile_photo (object with source param) 
    */
   author: PropTypes.object,
   /**
-   * A string representation of the date when that story was published.
+   * A string representation of the date when the content was published.
    */
   date: PropTypes.string,
   /**

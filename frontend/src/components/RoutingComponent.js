@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import ArticleListContainer from "./StoryList/StoryListContainer";
+import ArticleListContainer from "./StoryLists/StoryListContainer";
 import ArticleDetailContainer from "./StoryDetail/StoryDetailContainer";
 import ProfileDetailsContainer from "./ProfileDetails/ProfileDetailsContainer";
 import StoryEditor from "./StoryEditor/StoryEditor";

@@ -20,3 +20,9 @@ Frontend:
 4. Starting server ```python manage.py runserver```
 
 The application will run on ```127.0.0.1:80000```
+
+
+Steps that you have to follow if you want to edit frontend
+1. cd frontend
+2. yarn install
+3. npm run dev

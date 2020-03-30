@@ -1,0 +1,27 @@
+.carousel{
+    height:200px;
+}
+.content{
+    z-index:-1;
+    height:100%;
+    position: relative;
+}
+.arrow{
+    z-index:1;
+    position: relative;
+    color:white;
+    font-size: 5rem;
+    cursor: pointer;
+}
+.nextBtn{
+    composes: arrow;
+    float:right;
+    bottom:calc(100% + 2.5rem);
+    margin-right:20px;
+}
+.prevBtn{
+    composes:arrow;
+    float:left;
+    top:calc(100% + 2.5rem);
+    margin-left: 20px;
+}

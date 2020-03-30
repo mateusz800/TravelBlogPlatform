@@ -1,5 +1,6 @@
 export const loginStatus = {
     INCORRECT_DATA: "Incorrect email or password",
+    UNVERIFIED_ACCOUNT: "Your account email is not verified",
     ERROR: "Some unexpected error occured",
     SUCCESS: "You are now logged in"
 }
