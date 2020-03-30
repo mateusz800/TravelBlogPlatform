@@ -1,0 +1,14 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+
+import Carousel from "./index";
+import Image from "../Image/Image";
+import TruncuatedText from "../TruncuatedText/TruncuatedText";
+
+<Meta title="Components/Carousel" component={Carousel} />
+
+# Carousel
+
+<Carousel timeout={5000}>
+    <Image height={400}  src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1608&q=80'/>
+    <Image height={400} src='https://images.unsplash.com/photo-1519789110007-0e751882be76?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1629&q=80'/>
+</Carousel>

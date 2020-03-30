@@ -56,19 +56,23 @@ export const login = (email, password) => dispatch => {
   axios
     .post("/api/login", { email: email, password: password })
     .then(res => {
-      if (res.data["pk"]) {
-        // success
-        dispatch({
-          type: profileActions.LOGIN,
-          payload: res.data["pk"]
-        });
-        window.location.href = "/";
-      } else {
-        // login failed
-        dispatch({
-          type: profileActions.LOGIN_FAILED,
-          payload: loginStatus.INCORRECT_DATA
-        });
+      switch (res.data["status"]) {
+        case 1: // success
+          dispatch({
+            type: profileActions.LOGIN,
+            payload: res.data["pk"]
+          });
+          window.location.href = "/";
+        case 2: // account email not verified
+          dispatch({
+            type: profileActions.LOGIN_FAILED,
+            payload: loginStatus.INCORRECT_DATA
+          });
+        case 3: // incorrect email or password
+          dispatch({
+            type: profileActions.LOGIN_FAILED,
+            payload: loginStatus.INCORRECT_DATA
+          });
       }
     })
     .catch(error => {

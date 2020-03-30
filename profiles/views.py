@@ -38,7 +38,10 @@ def profile_detail(request, pk):
 def login_view(request):
     """
     Login user with the given credentials (email, password).
-    If the email or password is not correct return status: failed
+    Returns status:
+        1 - success
+        2 - account not verified
+        3 - incorrect credentials
     """
     email = request.data['email']
     password = request.data['password']
@@ -46,8 +49,9 @@ def login_view(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return Response({'pk': user.pk})
-    return Response({'status': 'failed'})
+            return Response({'status': 1, 'pk': user.pk})
+        return Response({'status': 2})
+    return Response({'status': 3})
 
 
 @login_required

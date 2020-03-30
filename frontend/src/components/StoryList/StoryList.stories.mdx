@@ -1,0 +1,185 @@
+import { Meta, Story, Props, Preview } from "@storybook/addon-docs/blocks";
+import { BrowserRouter } from "react-router-dom";
+
+import Card from "../Card/Card";
+import TruncuatedText from "../TruncuatedText/TruncuatedText";
+import StoryList from "./StoryList.js";
+
+<Meta title="Components/StoryList" component={Card} />
+
+# Story List
+
+It allows to organize stories.
+
+StoryList uses `Link` component from `react-router-dom` so it must be inside `BrowserRouter` to work
+
+~~~js
+<BrowserRouter>
+  <StoryList stories={stories} />
+</BrowserRouter>
+~~~
+
+
+
+<br />
+
+export const stories = [
+  {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  },
+    {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  },
+    {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  },
+    {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  },
+    {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  },
+    {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+      pk: 33
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+    status: "published"
+  }
+];
+
+List takes as a parameter list of story objects.
+<br/>
+Exemplary story object
+
+~~~json
+       {
+    pk: 15,
+    author: {
+      name: "Mateusz Budnik",
+      profile_photo: {
+        source:
+          "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      },
+    },
+    title: "kayaking",
+    subtitle: null,
+    body:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    published_date: "25-03-2020",
+    photo: {
+      source:
+        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+    },
+  }
+~~~
+
+<BrowserRouter>
+  <StoryList stories={stories} />
+</BrowserRouter>
+
+<StoryList />

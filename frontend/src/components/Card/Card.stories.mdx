@@ -8,47 +8,18 @@ import TruncuatedText from '../TruncuatedText/TruncuatedText';
 # Card 
 
 Card gives brief information about something. 
-It is great to show e.g. an overview of an story. But it can also might be a good option to show some 
-reviews or something like that.
+It is great to show e.g. an overview of an story. 
 <br/>
 
-<Story name="default">
-    <Card title='Lorem Ipsum'>
-        <TruncuatedText 
-                lines={3} 
-                text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        />
-    </Card>
-</Story>
-
-<Props of={Card} />
-
-<Story name="with image">
+<div style={{display:'flex'}}>
   <Card 
         title='Lorem Ipsum'
         subtitle='dot amoret'
         author={{
             name: 'Angelo Wise',
-            image: 'https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
-        }}
-        date='22.06.2018'
-        image='https://images.unsplash.com/photo-1527824404775-dce343118ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-    >
-        <TruncuatedText 
-                lines={3} 
-                text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        />
-    </Card>
-</Story>
-
-
-<Story name="with video">
-  <Card 
-        title='Lorem Ipsum'
-        subtitle='dot amoret'
-        author={{
-            name: 'Angelo Wise',
-            image: 'https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+           profile_photo:{
+                source: 'https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+            }
         }}
         date='22.06.2018'
         image='https://images.unsplash.com/photo-1580829853878-747e56cd8637?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80'
@@ -59,9 +30,43 @@ reviews or something like that.
                 text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
         />
     </Card>
-</Story>
 
-Poster is set as an image property.
+  <Card 
+        title='Lorem Ipsum'
+        subtitle='dot amoret'
+        author={{
+            name: 'Angelo Wise',
+            profile_photo:{
+                source: 'https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+            }
+        }}
+        date='22.06.2018'
+        image='https://images.unsplash.com/photo-1527824404775-dce343118ebc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
+    >
+        <TruncuatedText 
+                lines={3} 
+                text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        />
+    </Card>
+</div>
+
+<Props of={Card} />
+
+
+It can also might be a good option to show some reviews or something like that.
+
+
+ <Card> 
+     <h4>
+         <TruncuatedText 
+             lines={2} 
+             text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+         />
+     </h4>
+    </Card>
+
+<br/>
+<br/>
 
 
 #### Card component uses components such as:
@@ -74,6 +79,4 @@ To demonstrate cards above I used `TruncuatedText` component to show some conten
 
 ### What to do:
 - More beautiful play button
-### Bugs:
-- details div is a little to narrow when hover
 
