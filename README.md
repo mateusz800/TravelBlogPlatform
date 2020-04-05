@@ -1,9 +1,10 @@
 
 A website that allows registered user to create stories and make them visible to everyone.
 <div style="display:flex;">
-<img width="200" alt="Zrzut ekranu 2020-03-19 o 20 25 57" src="https://user-images.githubusercontent.com/44299056/77107205-9fc1d700-6a20-11ea-97c3-8d8ebbed405d.png">
-<img width="400" alt="Zrzut ekranu 2020-03-19 o 20 25 57" src="https://user-images.githubusercontent.com/44299056/77106855-114d5580-6a20-11ea-99a7-1f545924b3f0.png">
- </div>
+<img style='float:left align-self:flex-start' width='49%' src='https://user-images.githubusercontent.com/44299056/78504852-d6f9ed00-776f-11ea-9dbb-c55a5bd4423e.png'/>
+<img style='float:left' width='49%' src='https://user-images.githubusercontent.com/44299056/78504894-2809e100-7770-11ea-917a-8647536f634a.png'/>
+</div>
+ <img src='https://user-images.githubusercontent.com/44299056/78504800-94381500-776f-11ea-9ab3-ead3481b34aa.png'/>
 
 ### Documentation
 Frontend:
@@ -12,7 +13,7 @@ Frontend:
 ### Running project
 1. Clonning project ```git clone https://github.com/mateusz800/blog```
 2. ``` cd ``` into project folder
-4. Creating virtual environment ```virtualenv venv```
+4. Creating virtual environment ```python -m venv venv```
 5. Activating venv ```source venv/bin/activate```
 6. Installing dependencies ``` pip install -r requirements.txt ```
 7. Changing settings.py (email server credentials)
