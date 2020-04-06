@@ -1,11 +1,12 @@
 import React, { Component, Fragment, useState } from "react";
+import {connect} from "react-redux"
 import {Link} from 'react-router-dom'
 import ItemsCarousel from "react-items-carousel";
 import Card from "../../Card/Card";
 import TruncuatedText from "../../TruncuatedText/TruncuatedText";
 import styles from "./styles.module.css";
 
-const StorySlider = ({ stories }) => {
+const StorySlider = ({ stories, currentUserPK }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
   const elements = stories.map(story => (
@@ -18,7 +19,7 @@ const StorySlider = ({ stories }) => {
         date={story.published_date}
         author={story.author}
         height="375px"
-        owner={true}
+        owner={currentUserPK && currentUserPK == story.author.pk}
         pk={story.pk}
       >
         <TruncuatedText lines={3} text={story.body} />
@@ -46,4 +47,10 @@ const StorySlider = ({ stories }) => {
   );
 };
 
-export default StorySlider;
+function mapStateToProps(state){
+  return {
+    currentUserPK: state.profiles.user_pk
+  }
+}
+
+export default connect(mapStateToProps)(StorySlider);

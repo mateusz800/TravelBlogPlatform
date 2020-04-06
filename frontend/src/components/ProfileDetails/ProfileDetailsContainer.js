@@ -78,7 +78,6 @@ class ProfileDetailsContainer extends Component {
                 <StorySlider stories={userDraftStories} />
               </div>
             )}
-            {/*to fo published */}
             {userStories && userStories.length > 0 && (
               <div>
                 {(userPK && userPK == userStories[0].author.pk) ? <h3>Published:</h3>: <h3>Stories:</h3>}
