@@ -3,6 +3,8 @@ from django.conf.global_settings import AUTH_USER_MODEL
 from django.db import models
 from django.utils import timezone
 
+from taggit.managers import TaggableManager
+
 from media.models import Photo
 from profiles.models import Profile
 
@@ -28,6 +30,7 @@ class Story(models.Model):
     slug = models.SlugField(max_length=50, unique_for_date='published_date')
     featured_photo = models.ForeignKey(
         Photo, related_name='article_cover', null=True, blank=True, on_delete=models.SET_NULL)
+    tags = TaggableManager()
 
     objects = models.Manager()
     published = PublishedManager()

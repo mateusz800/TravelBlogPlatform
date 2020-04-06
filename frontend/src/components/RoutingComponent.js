@@ -8,6 +8,7 @@ import StoryEditor from "./StoryEditor/StoryEditor";
 import LoginPage from "./LoginPage/LoginPage";
 import { checkIfAuthenticated } from "../actions/profileActions";
 import { render } from "react-dom";
+import Home from "./Home";
 
 class RoutingComponent extends Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class RoutingComponent extends Component {
     const { is_authenticated } = this.props;
     return (
       <Switch>
+        <Route exact path="/" component={Home} />
         <Route
           exact
           path="/stories/page/:page"
@@ -44,14 +46,16 @@ class RoutingComponent extends Component {
         <Route
           exact
           path="/profile/:pk"
-          component={routeProps => <ProfileDetailsContainer {...routeProps} page='main' />}
+          component={routeProps => (
+            <ProfileDetailsContainer {...routeProps} page="main" />
+          )}
         />
         {is_authenticated && (
           <Route
             exact
             path="/profile/:pk/settings"
-            component={ routeProps => (
-              <ProfileDetailsContainer {...routeProps} page="settings"/>
+            component={routeProps => (
+              <ProfileDetailsContainer {...routeProps} page="settings" />
             )}
           />
         )}

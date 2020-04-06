@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
-from rest_framework import filters, generics
+from rest_framework import filters, generics, request
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
@@ -20,6 +21,17 @@ class StoryList(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = Story.objects.all().filter(status='published')
     serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        """
+        Possibility to limit count of objects via GET params
+        count = x
+        """
+        stories = Story.objects.all().filter(status='published')
+        if self.request.GET.get('count'):
+            count = int(self.request.GET.get('count'))
+            return stories[:count]
+        return stories
 
 
 @api_view(['GET'])

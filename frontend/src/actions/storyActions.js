@@ -8,6 +8,15 @@ export const getStories = () => dispatch => {
   });
 };
 
+export const getFeaturedStories = (count) => dispatch => {
+  axios.get(`/api/stories?count=${count}`).then(res => {
+    dispatch({
+      type:storyActions.GET_FEATURED_STORIES,
+      payload: res.data.results
+    })
+  });
+};
+
 export const getUserStories = profilePK => dispatch => {
   axios.get(`/api/stories/profile/${profilePK}`).then(res => {
     dispatch({

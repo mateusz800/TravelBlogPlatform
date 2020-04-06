@@ -12,6 +12,11 @@ function storiesReducer(state = initialState, action) {
         stories: action.payload,
         currentStory: {}
       };
+    case storyActions.GET_FEATURED_STORIES:
+      return {
+        ...state,
+        featuredStories:action.payload
+      }
     case storyActions.GET_STORY_COUNT:
       return {
         ...state,
