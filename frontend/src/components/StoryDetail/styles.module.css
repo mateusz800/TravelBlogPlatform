@@ -73,3 +73,8 @@
   -webkit-transform: rotate(45deg);
   cursor: pointer;
 }
+.options{
+    position:absolute;
+    top:20px;  
+    right:40px; 
+}

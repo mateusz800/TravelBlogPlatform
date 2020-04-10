@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import StoryDetails from "./StoryDetail";
-import { getStory } from "../../actions/storyActions";
+import { getStory, removeStory } from "../../actions/storyActions";
 import { Redirect } from "react-router";
 
 class ArticleDetailContainer extends Component {
@@ -28,13 +28,14 @@ class ArticleDetailContainer extends Component {
     if (!this.state.authorized) {
       return <Redirect to="/404" />;
     }
-    if (this.props.story && this.props.story.author) {
+    if (this.props.story && this.props.story.author && this.props.remove) {
       return (
         <StoryDetails
           story={this.props.story}
           owner={
             this.props.profilePK === this.props.story.author.pk ? true : false
           }
+          removeFunc={this.props.remove}
         />
       );
     } else {
@@ -45,7 +46,8 @@ class ArticleDetailContainer extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadData: pk => dispatch(getStory(pk))
+    loadData: pk => dispatch(getStory(pk)),
+    remove: pk => dispatch(removeStory(pk))
   };
 }
 

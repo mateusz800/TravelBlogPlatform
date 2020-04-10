@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import Image from "../Image/Image";
 import Author from "../Author/Author";
 import styles from "./styles.module.css";
+import MoreButton from "../MoreOptions";
 
-const StoryDetails = ({ story, owner }) => {
+
+const StoryDetails = ({ story, owner, removeFunc }) => {
   const content = useRef(null);
   return (
     <div>
@@ -13,7 +15,6 @@ const StoryDetails = ({ story, owner }) => {
         <Image src={story.photo.source} height="95vh" brightness={50} />
       )}
       <div className={styles.info}>
-        {owner && <Link to={`/story/${story.pk}/edit`}><button>edit</button></Link>}
         <h1>{story.title}</h1>
         <h3>{story.subtitle}</h3>
         <div className={styles.authorDate}>
@@ -33,6 +34,16 @@ const StoryDetails = ({ story, owner }) => {
         >
           <i className={styles.arrowDown}></i>
         </button>
+        <div className={styles.options}>
+          {owner && (
+            <MoreButton>
+              <Link to={`/story/${story.pk}/edit`}>
+                <button>edit</button>
+              </Link>
+              <button onClick={()=>removeFunc(story.pk)}>remove</button>
+            </MoreButton>
+          )}
+        </div>
       </div>
       <article
         ref={content}
@@ -43,5 +54,11 @@ const StoryDetails = ({ story, owner }) => {
   );
 };
 
+StoryDetails.prototype = {
+  /* Story object */
+  story: PropTypes.object,
+  /* Is current user author of the story */
+  owner: PropTypes.bool
+};
 
 export default StoryDetails;

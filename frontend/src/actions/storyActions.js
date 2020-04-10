@@ -97,8 +97,8 @@ export const addStory = data => dispatch => {
 export const removeStory = pk => dispatch => {
   console.log('remove')
   axios.get(`/api/story/${pk}/remove`).then(res => {
-      // Story removed. Reloading page
-      location.reload()
+      // Story removed. Go back.
+      window.history.back();
   });
 }
 
