@@ -1,0 +1,12 @@
+.container{
+    font-size:1.2rem;
+    width:100%;
+    display:flex;
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+    z-index: 2;
+}
+.container button{
+    font-size:1.2rem;
+}

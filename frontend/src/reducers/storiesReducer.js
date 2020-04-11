@@ -15,8 +15,13 @@ function storiesReducer(state = initialState, action) {
     case storyActions.GET_FEATURED_STORIES:
       return {
         ...state,
-        featuredStories:action.payload
-      }
+        featuredStories: action.payload
+      };
+    case storyActions.GET_SIMILAR_STORIES:
+      return {
+        ...state,
+        similarStories: action.payload
+      };
     case storyActions.GET_STORY_COUNT:
       return {
         ...state,
@@ -39,7 +44,7 @@ function storiesReducer(state = initialState, action) {
         userStories: action.payload
       };
     case storyActions.GET_USER_DRAFT_STORIES:
-      console.log('jest ok');
+      console.log("jest ok");
       return {
         ...state,
         userDrafts: action.payload

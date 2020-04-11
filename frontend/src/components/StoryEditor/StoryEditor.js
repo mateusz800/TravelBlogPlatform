@@ -10,11 +10,14 @@ import mediumDraftExporter from "medium-draft/lib/exporter";
 import {
   getStory,
   addStory,
-  resetCurrentStory
+  resetCurrentStory,
+  addTag
 } from "../../actions/storyActions";
 import StoryHeaderForm from "./StoryHeaderForm/StoryHeaderForm";
 import CustomImageSideButton from "./SideButtons/CustomImageSideButton";
+
 import { photoTypes } from "../../actions/types";
+import Bar from "./Bar";
 
 class StoryEditor extends React.Component {
   statusCheckbox = null;
@@ -41,6 +44,8 @@ class StoryEditor extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getData = this.getData.bind(this);
     this.save = this.save.bind(this);
+    this.addTag = this.addTag.bind(this);
+    this.showPreview = this.showPreview.bind(this);
   }
 
   componentDidMount() {
@@ -98,8 +103,9 @@ class StoryEditor extends React.Component {
   }
 
   save() {
+    /* Send data to the database */
     const editorState = this.state.editorState;
-    console.log('ok');
+    console.log("ok");
     const renderedHTML = mediumDraftExporter(editorState.getCurrentContent());
     console.log(renderedHTML);
     let data = {
@@ -114,6 +120,18 @@ class StoryEditor extends React.Component {
       data["pk"] = this.props.story.pk;
     }
     this.props.addStory(data);
+  }
+  
+  showPreview(){
+    /* Save work and show how others see story */
+    this.save()
+    this.props.history.push(`/story/${this.props.story.pk}`);
+  }
+
+  addTag(tag){
+    /* Add tag to the story */
+    const story_pk = this.props.story.pk;
+    this.props.addTag(story_pk, tag);
   }
 
   render() {
@@ -132,7 +150,7 @@ class StoryEditor extends React.Component {
           />
         )}
         {!this.props.story && <StoryHeaderForm updateData={this.getData} />}
-        <button onClick={this.save}>Save</button>
+        <Bar previewFunc={this.showPreview} addTagFunc={this.addTag} />
         <label for="status">Publish</label>
         <input
           type="checkbox"
@@ -175,7 +193,8 @@ function mapDispatchToProps(dispatch) {
   return {
     loadData: pk => dispatch(getStory(pk)),
     resetData: () => dispatch(resetCurrentStory()),
-    addStory: data => dispatch(addStory(data))
+    addStory: data => dispatch(addStory(data)),
+    addTag: (story_pk, tag) => dispatch(addTag(story_pk, tag))
   };
 }
 

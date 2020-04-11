@@ -47,10 +47,5 @@ const StorySlider = ({ stories, currentUserPK }) => {
   );
 };
 
-function mapStateToProps(state){
-  return {
-    currentUserPK: state.profiles.user_pk
-  }
-}
 
-export default connect(mapStateToProps)(StorySlider);
+export default StorySlider;

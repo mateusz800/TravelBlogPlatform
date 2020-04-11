@@ -84,9 +84,32 @@ def remove_story(request, story_pk):
     """
     Check if the logged user is the author of the content if so remove story from database
     """
-    print('ok')
     user = request.user.pk
     story = Story.objects.get(pk=story_pk)
     if story.author.pk == user:
         story.delete()
     return Response({'status': 'removed'})
+
+
+@login_required
+@api_view(['GET'])
+def add_tag(request, story_pk, tag):
+    """
+    Add tag to the story
+    """
+    story = get_object_or_404(Story, pk=story_pk)
+    story.tags.add(tag)
+    story.save()
+    return Response({'status': 'success'})
+
+
+@api_view(['GET'])
+def get_similar_stories(request, story_pk, count=4):
+    """
+    Get list of similar stories to given one
+    """
+    story = get_object_or_404(Story, pk=story_pk)
+    similar_stories = story.tags.similar_objects()
+    serializer = ArticleSerializer(
+        similar_stories, context={'request': request}, many=True)
+    return Response(serializer.data)

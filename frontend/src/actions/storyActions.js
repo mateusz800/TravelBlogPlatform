@@ -26,6 +26,16 @@ export const getUserStories = profilePK => dispatch => {
   });
 };
 
+/* get similar stories to the given one */
+export const getSimilarStories = storyPK => dispatch => {
+  axios.get(`/api/story/${storyPK}/similar_stories`).then(res => {
+    dispatch({
+      type: storyActions.GET_SIMILAR_STORIES,
+      payload: res.data
+    });
+  });
+};
+
 export const getUserDraftStories = profilePK => dispatch => {
   axios.get(`/api/stories/profile/${profilePK}/drafts/1`).then(res => {
     dispatch({
@@ -60,6 +70,7 @@ export const getStory = pk => dispatch => {
   });
 };
 
+
 export const searchStoriesOnPage = (keywords, page) => dispatch => {
   axios.get(`/api/stories?search=${keywords}&page=${page}`).then(res => {
     updateStoriesListData(res.data, dispatch);
@@ -93,9 +104,16 @@ export const addStory = data => dispatch => {
     });
 };
 
+/* Add tag to the story */
+export const addTag = (story_pk, tag) => dispatch => {
+  axios.get(`/api/story/${story_pk}/add_tag/${tag}`).then(res => {
+      /* Update tag list */
+  });
+}
+
+
 /* remove story from database */
 export const removeStory = pk => dispatch => {
-  console.log('remove')
   axios.get(`/api/story/${pk}/remove`).then(res => {
       // Story removed. Go back.
       window.history.back();

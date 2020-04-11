@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Card from "../Card/Card";
 import TruncuatedText from "../TruncuatedText/TruncuatedText";
 import StoryList from "./StoryList.js";
+import StorySlider from "./StorySlider"
 
 <Meta title="Components/StoryList" component={Card} />
 
@@ -181,5 +182,12 @@ Exemplary story object
 <BrowserRouter>
   <StoryList stories={stories} />
 </BrowserRouter>
+
+## Story slider
+<Preview>
+  <BrowserRouter>
+    <StorySlider stories={stories} />
+  </BrowserRouter>
+</Preview>
 
 <StoryList />

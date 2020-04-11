@@ -7,5 +7,7 @@ urlpatterns = [
     path('api/stories/profile/<int:author_pk>/drafts/<int:drafts>', views.author_stories),
     path('api/story/<int:pk>', views.story_details),
     path('api/story/add', views.add_story),
-    path('api/story/<int:story_pk>/remove', views.remove_story)
+    path('api/story/<int:story_pk>/remove', views.remove_story),
+    path('api/story/<int:story_pk>/add_tag/<str:tag>', views.add_tag),
+    path('api/story/<int:story_pk>/similar_stories', views.get_similar_stories)
 ]
