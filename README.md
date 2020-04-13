@@ -1,4 +1,5 @@
-
+[![BCH compliance](https://bettercodehub.com/edge/badge/mateusz800/stories?branch=master)](https://bettercodehub.com/)
+<br/><br/>
 A website that allows registered user to create stories and make them visible to everyone.
 <div style="display:flex;">
 <img style='float:left align-self:flex-start' width='49%' src='https://user-images.githubusercontent.com/44299056/78504852-d6f9ed00-776f-11ea-9dbb-c55a5bd4423e.png'/>
