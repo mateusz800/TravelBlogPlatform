@@ -157,11 +157,11 @@ class StoryEditor extends React.Component {
           />
         )}
         {!story && <StoryHeaderForm updateData={this.getData} />}
-        {story && <Bar
+        { <Bar
           previewFunc={this.showPreview}
           addTagFunc={this.addTag}
           removeTagFunc={this.removeTag}
-          tags={story.tags}
+          tags={story? story.tags: null}
         />}
         <label for="status">Publish</label>
         <input
