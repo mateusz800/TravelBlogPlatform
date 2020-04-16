@@ -54,6 +54,23 @@ function storiesReducer(state = initialState, action) {
         ...state,
         currentStory: undefined
       };
+    case storyActions.ADD_TAG:
+      const currentStory = state.currentStory;
+      if (!currentStory.tags.includes(action.payload)){
+        currentStory.tags.push(action.payload);
+      }
+      return {
+        ...state,
+        currentStory: currentStory
+      };
+    case storyActions.REMOVE_TAG:
+      const story = state.currentStory;
+      const index = story.tags.indexOf(action.payload);
+      story.tags.splice(index, 1);
+      return {
+        ...state,
+        currentStory: story
+      };
     default:
       return state;
   }

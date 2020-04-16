@@ -10,3 +10,7 @@
 .container button{
     font-size:1.2rem;
 }
+.x{
+    font-size: 1rem;
+    cursor: pointer;
+}

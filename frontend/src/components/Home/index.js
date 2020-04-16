@@ -6,12 +6,12 @@ import { getFeaturedStories } from "../../actions/storyActions";
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    props.getFeaturedStories(1);
+    props.getFeaturedStories(3);
   }
   render() {
     return (
       <div>
-        <FeaturedStories />
+        <FeaturedStories speed={5000} />
       </div>
     );
   }

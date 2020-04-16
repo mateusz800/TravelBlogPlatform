@@ -1,6 +1,8 @@
 from django.http import HttpResponseBadRequest
 from rest_framework import serializers, status
 from rest_framework.response import Response
+from taggit_serializer.serializers import TagListSerializerField
+
 from profiles.serializers import ProfileSerializer
 from media.serializers import PhotoSerializer
 
@@ -10,11 +12,12 @@ from .models import Story
 class ArticleSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField()
     author = serializers.SerializerMethodField()
+    tags = TagListSerializerField()
 
     class Meta:
         model = Story
         fields = ('pk', 'author', 'title', 'subtitle',
-                  'body', 'published_date', 'photo', 'status')
+                  'body', 'published_date', 'photo', 'status', 'tags')
 
     def get_photo(self, obj):
         if obj.featured_photo:

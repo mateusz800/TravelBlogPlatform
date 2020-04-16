@@ -102,6 +102,17 @@ def add_tag(request, story_pk, tag):
     story.save()
     return Response({'status': 'success'})
 
+@login_required
+@api_view(['GET'])
+def remove_tag(request, story_pk, tag):
+    """
+    Add tag to the story
+    """
+    story = get_object_or_404(Story, pk=story_pk)
+    story.tags.remove(tag)
+    story.save()
+    return Response({'status': 'success'})
+
 
 @api_view(['GET'])
 def get_similar_stories(request, story_pk, count=4):

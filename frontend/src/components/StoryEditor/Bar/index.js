@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { faTimes} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
 
 class Bar extends React.Component {
@@ -24,6 +26,12 @@ class Bar extends React.Component {
   }
 
   render() {
+    const tags = this.props.tags.map(tag => (
+      <div key={tag}>
+        <span>#{tag} </span>
+        <span  className={styles.x} onClick={()=>this.props.removeTagFunc(tag)}><FontAwesomeIcon icon={faTimes}/>&nbsp;</span>
+      </div>
+    ));
     return (
       <div className={styles.container}>
         <button onClick={this.props.previewFunc}> PREVIEW </button>
@@ -35,6 +43,7 @@ class Bar extends React.Component {
             placeholder="add tag"
           />
         </form>
+        {tags}
       </div>
     );
   }

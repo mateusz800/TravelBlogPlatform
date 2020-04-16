@@ -9,5 +9,6 @@ urlpatterns = [
     path('api/story/add', views.add_story),
     path('api/story/<int:story_pk>/remove', views.remove_story),
     path('api/story/<int:story_pk>/add_tag/<str:tag>', views.add_tag),
+    path('api/story/<int:story_pk>/remove_tag/<str:tag>', views.remove_tag),
     path('api/story/<int:story_pk>/similar_stories', views.get_similar_stories)
 ]

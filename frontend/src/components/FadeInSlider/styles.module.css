@@ -1,0 +1,21 @@
+
+.container{
+    background-color: black;
+}
+.container  a{
+   display: flex;
+}
+.animation{
+    transition: all 0.5s;
+    height:100%;
+}
+
+.active{
+    opacity:1;
+    composes:animation;
+}
+
+.exit{
+    opacity:0;
+    composes:animation;
+}

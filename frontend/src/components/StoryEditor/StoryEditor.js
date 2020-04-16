@@ -11,7 +11,8 @@ import {
   getStory,
   addStory,
   resetCurrentStory,
-  addTag
+  addTag,
+  removeTag
 } from "../../actions/storyActions";
 import StoryHeaderForm from "./StoryHeaderForm/StoryHeaderForm";
 import CustomImageSideButton from "./SideButtons/CustomImageSideButton";
@@ -45,6 +46,7 @@ class StoryEditor extends React.Component {
     this.getData = this.getData.bind(this);
     this.save = this.save.bind(this);
     this.addTag = this.addTag.bind(this);
+    this.removeTag = this.removeTag.bind(this);
     this.showPreview = this.showPreview.bind(this);
   }
 
@@ -105,9 +107,7 @@ class StoryEditor extends React.Component {
   save() {
     /* Send data to the database */
     const editorState = this.state.editorState;
-    console.log("ok");
     const renderedHTML = mediumDraftExporter(editorState.getCurrentContent());
-    console.log(renderedHTML);
     let data = {
       title: this.state.title,
       subtitle: this.state.subtitle,
@@ -121,36 +121,48 @@ class StoryEditor extends React.Component {
     }
     this.props.addStory(data);
   }
-  
-  showPreview(){
+
+  showPreview() {
     /* Save work and show how others see story */
-    this.save()
+    this.save();
     this.props.history.push(`/story/${this.props.story.pk}`);
   }
 
-  addTag(tag){
+  addTag(tag) {
     /* Add tag to the story */
     const story_pk = this.props.story.pk;
     this.props.addTag(story_pk, tag);
+    this.props.loadData(story_pk);
+  }
+  removeTag(tag){
+    /* remove tag from the story */
+    const story_pk = this.props.story.pk;
+    this.props.removeTag(story_pk, tag);
   }
 
   render() {
-    const { editorState, authorized } = this.state;
+    const { editorState, authorized, } = this.state;
+    const {story} = this.props;
     if (!authorized) {
       return <Redirect to="/404" />;
     }
     return (
       <Fragment>
-        {this.props.story && this.props.story.photo && (
+        {story && story.photo && (
           <StoryHeaderForm
-            title={this.props.story.title}
-            subtitle={this.props.story.subtitle}
+            title={story.title}
+            subtitle={story.subtitle}
             updateData={this.getData}
-            photo={this.props.story.photo.source}
+            photo={story.photo.source}
           />
         )}
-        {!this.props.story && <StoryHeaderForm updateData={this.getData} />}
-        <Bar previewFunc={this.showPreview} addTagFunc={this.addTag} />
+        {!story && <StoryHeaderForm updateData={this.getData} />}
+        {story && <Bar
+          previewFunc={this.showPreview}
+          addTagFunc={this.addTag}
+          removeTagFunc={this.removeTag}
+          tags={story.tags}
+        />}
         <label for="status">Publish</label>
         <input
           type="checkbox"
@@ -194,7 +206,8 @@ function mapDispatchToProps(dispatch) {
     loadData: pk => dispatch(getStory(pk)),
     resetData: () => dispatch(resetCurrentStory()),
     addStory: data => dispatch(addStory(data)),
-    addTag: (story_pk, tag) => dispatch(addTag(story_pk, tag))
+    addTag: (story_pk, tag) => dispatch(addTag(story_pk, tag)),
+    removeTag: (story_pk, tag) => dispatch(removeTag(story_pk, tag))
   };
 }
 

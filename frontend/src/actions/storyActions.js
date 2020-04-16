@@ -108,9 +108,23 @@ export const addStory = data => dispatch => {
 export const addTag = (story_pk, tag) => dispatch => {
   axios.get(`/api/story/${story_pk}/add_tag/${tag}`).then(res => {
       /* Update tag list */
+      dispatch({
+        type:storyActions.ADD_TAG,
+        payload: tag
+      });
   });
 }
 
+/* Remove tag from the story */
+export const removeTag = (story_pk, tag) => dispatch => {
+  axios.get(`/api/story/${story_pk}/remove_tag/${tag}`).then(res => {
+      /* Update tag list */
+      dispatch({
+        type:storyActions.REMOVE_TAG,
+        payload: tag
+      });
+  });
+}
 
 /* remove story from database */
 export const removeStory = pk => dispatch => {
