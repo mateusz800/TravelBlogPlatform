@@ -15,7 +15,8 @@ const StoryBanner = ({ story }) => {
           <div className={styles.content}>
             <h2>{story.title}</h2>
             <h4>{story.subtitle}</h4>
-            <TruncuatedText text={story.body} lines={4}/>
+            <TruncuatedText text={story.body} lines={10}/>
+            <span className={styles.readMore}>czytaj dalej</span>
           </div>
         </Fragment>
       )}

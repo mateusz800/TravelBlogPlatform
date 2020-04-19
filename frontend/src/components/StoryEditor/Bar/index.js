@@ -28,7 +28,7 @@ class Bar extends React.Component {
   render() {
     let tags = null;
     if (this.props.tags) {
-      const tags = this.props.tags.map(tag => (
+      tags = this.props.tags.map(tag => (
         <div key={tag}>
           <span>#{tag} </span>
           <span
