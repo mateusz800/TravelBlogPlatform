@@ -125,7 +125,10 @@ class StoryEditor extends React.Component {
   showPreview() {
     /* Save work and show how others see story */
     this.save();
-    this.props.history.push(`/story/${this.props.story.pk}`);
+    if(this.props.story){
+      this.props.history.push(`/story/${this.props.story.pk}`);
+    }
+    
   }
 
   addTag(tag) {

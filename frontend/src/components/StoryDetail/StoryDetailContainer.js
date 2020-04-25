@@ -64,7 +64,7 @@ class ArticleDetailContainer extends Component {
             }
             removeFunc={this.props.remove}
           />
-          {this.props.similarStories && (
+          {this.props.similarStories && this.props.similarStories.length>0 && (
             <div className={styles.similarStories}>
               <h2>Similar stories</h2>
               <StorySlider stories={this.props.similarStories} />

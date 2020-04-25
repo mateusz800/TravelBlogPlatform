@@ -9,8 +9,6 @@ class FeaturedStories extends React.Component {
   constructor(props) {
     super(props);
     this.state = { activeItemIndex: 0, elements: <StoryBanner /> };
-    this.changeSlide = this.changeSlide.bind(this);
-    this.interval = setInterval(this.changeSlide, props.speed);
   }
 
   componentDidUpdate(prevProps) {
@@ -24,13 +22,6 @@ class FeaturedStories extends React.Component {
     }
   }
 
-  changeSlide() {
-    const newIndex =
-      this.state.activeItemIndex + 1 < this.props.stories.length
-        ? this.state.activeItemIndex + 1
-        : 0;
-    this.setState({ activeItemIndex: newIndex });
-  }
 
   render() {
     return (

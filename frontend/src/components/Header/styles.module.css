@@ -19,6 +19,7 @@
     grid-column-start:col-start 2;
     margin-right:10px;
     display: flex;
+    transition: all .5s;
 }
 .header nav > *{
     margin-right:10px;
@@ -43,6 +44,12 @@
 .menu:hover{
     display:flex;
 }
+.mobileMenuBtn{
+    position: absolute;
+    right:20px;
+    display: none;
+}
+
 
 
 @media only screen and (max-width:500px){
@@ -50,6 +57,22 @@
         display:flex;
     }
     .header nav{
-        justify-self: right;
+        position: absolute;
+        top:52px;
+        left:0;
+        width:100%;
+        background-color: white;
+        z-index: 2;
+        padding: 20px;
+        height:100%;
+    }
+    .mobileMenuBtn{
+        display:block;
+    }
+    .mobileHide{
+        display:none !important;
+    }
+    .show{
+        display:block;
     }
 }

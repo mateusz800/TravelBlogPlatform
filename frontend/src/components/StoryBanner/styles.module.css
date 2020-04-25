@@ -68,3 +68,28 @@
 .readMore:hover{
   opacity: 1;
 }
+
+@media only screen and (max-width:500px){
+  .gradient{
+    background: linear-gradient(
+    180deg,
+    rgba(30, 30, 30, 0.2) 0%,
+    rgba(30, 30, 30, 0.8) 30%,
+    rgba(30, 30, 30, 1) 50%,
+    rgba(30, 30, 30, 1) 100%
+  );
+  }
+  .container{
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+  .image{
+    min-height: 0;
+  }
+  .height{
+    max-height:70vh;
+  }
+  .content{
+    padding-bottom: 20px;
+  }
+}

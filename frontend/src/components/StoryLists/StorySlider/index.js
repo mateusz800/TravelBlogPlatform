@@ -8,6 +8,7 @@ import styles from "./styles.module.css";
 
 const StorySlider = ({ stories, currentUserPK }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [numberOfCards, setNumberOfCards] = useState(parseInt(window.outerWidth / 300));
   const chevronWidth = 40;
   const elements = stories.map(story => (
     <Link to={`/story/${story.pk}`} key={story.pk}>
@@ -26,6 +27,11 @@ const StorySlider = ({ stories, currentUserPK }) => {
       </Card>
     </Link>
   ));
+  const handleResize = () =>{
+    setNumberOfCards(parseInt(window.outerWidth / 300));
+    setActiveItemIndex(0);
+  }
+  window.addEventListener('resize', handleResize);
   return (
     <div
       className={styles.container}
@@ -34,7 +40,7 @@ const StorySlider = ({ stories, currentUserPK }) => {
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={4}
+        numberOfCards={numberOfCards}
         gutter={20}
         leftChevron={<button>{"<"}</button>}
         rightChevron={<button>{">"}</button>}

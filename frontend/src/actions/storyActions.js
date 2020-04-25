@@ -98,6 +98,7 @@ export const addStory = data => dispatch => {
         type: storyActions.GET_NEW_STORY_STATUS,
         payload: res.data
       });
+      window.location.href = `/story/${res.data['pk']}`
     })
     .catch(error => {
       console.log(error);
