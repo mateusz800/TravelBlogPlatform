@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hitcount',
     'taggit',
     'taggit_serializer',
     'profiles',
@@ -153,3 +154,8 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+# ---- hitcounts ---- #
+# when user with the same ip address view few times the same object count it only once
+HITCOUNT_HITS_PER_IP_LIMIT = 1 

@@ -8,8 +8,13 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
+
 from .models import Story
 from .serializers import ArticleSerializer, GeneralArticleSerializer
+
+
 
 
 class StoryList(generics.ListCreateAPIView):
@@ -17,7 +22,7 @@ class StoryList(generics.ListCreateAPIView):
     View that returns a list of artilces.
     It offers the pagination and search functionality
     """
-    search_fields = ['title']
+    search_fields = ['title', 'subtitle']
     filter_backends = (filters.SearchFilter,)
     queryset = Story.objects.all().filter(status='published')
     serializer_class = ArticleSerializer
@@ -40,10 +45,22 @@ def story_details(request, pk):
     View to get the details of the story with given pk
     """
     story = get_object_or_404(Story, pk=pk)
+    # add hit to visits count
+    hit_count = HitCount.objects.get_for_object(story)
+    HitCountMixin.hit_count(request, hit_count)
     serializer = ArticleSerializer(
         story, context={'request': request}, many=False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def popular_stories(request, count=5):
+    """
+    Get list of popular stories
+    """
+    stories = Story.objects.filter(status='published').order_by('-visits_count__hits')
+    stories_serializer = ArticleSerializer(
+        stories, context={'request': request}, many=True)
+    return Response({'stories': stories_serializer.data})
 
 @api_view(['GET'])
 def author_stories(request, author_pk, drafts=False):
@@ -124,3 +141,5 @@ def get_similar_stories(request, story_pk, count=4):
     serializer = ArticleSerializer(
         similar_stories, context={'request': request}, many=True)
     return Response(serializer.data)
+
+
