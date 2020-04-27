@@ -1,23 +1,24 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { logout } from "../../../actions/profileActions";
 import styles from "../styles.module.css";
 
-const UserMenu = ({ logout, profilePK, isAuthenticated }) => {
+const UserMenu = ({ logout, profilePK, isAuthenticated, t }) => {
   if (profilePK || !isAuthenticated) {
     return (
       <div className={styles.menu}>
-        {isAuthenticated ===false && (
+        {isAuthenticated === false && (
           <Fragment>
-            <Link to="/register">join</Link>
-            <Link to="/login">login</Link>
+            <Link to="/register">{t("join")}</Link>
+            <Link to="/login">{t("login")}</Link>
           </Fragment>
         )}
         {isAuthenticated && (
           <Fragment>
-            <Link to={`/profile/${profilePK}`}>profile</Link>
-            <button onClick={logout}>logout</button>
+            <Link to={`/profile/${profilePK}`}>{t("profile")}</Link>
+            <button onClick={logout}>{t("logout")}</button>
           </Fragment>
         )}
       </div>
@@ -39,4 +40,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(UserMenu));

@@ -2,6 +2,7 @@ import React, { Fragment, Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 
 import Image from "../Image/Image";
 import Avatar from "../Avatar/Avatar";
@@ -50,7 +51,8 @@ class ProfileDetails extends Component {
       loggedUserProfile,
       page,
       draftStories,
-      children
+      children,
+      t
     } = this.props;
     if (profile) {
       return (
@@ -87,13 +89,13 @@ class ProfileDetails extends Component {
             >
               {loggedUserProfile && (
                 <Link to={`/profile/${profile.pk}/settings`}>
-                  <h4>Settings</h4>
+                  <h4>{t("Settings")}</h4>
                 </Link>
               )}
               <div className="options">
                 {loggedUserProfile && (
                   <Link to="/story/new">
-                    <h4>add story +</h4>
+                    <h4>{t("add story")} +</h4>
                   </Link>
                 )}
               </div>
@@ -125,4 +127,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(ProfileDetails);
+export default connect(
+  null,
+  mapDispatchToProps
+)(withTranslation()(ProfileDetails));

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
+import {withTranslation} from "react-i18next"
 import { connect } from "react-redux";
 import StoryDetails from "./StoryDetail";
 import {
@@ -55,6 +56,7 @@ class ArticleDetailContainer extends Component {
       return <Redirect to="/404" />;
     }
     if (this.props.story && this.props.story.author && this.props.remove) {
+      const {t} = this.props;
       return (
         <Fragment>
           <StoryDetails
@@ -66,7 +68,7 @@ class ArticleDetailContainer extends Component {
           />
           {this.props.similarStories && this.props.similarStories.length>0 && (
             <div className={styles.similarStories}>
-              <h2>Similar stories</h2>
+              <h2>{t("Similar stories")}</h2>
               <StorySlider stories={this.props.similarStories} />
             </div>
           )}
@@ -96,4 +98,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArticleDetailContainer);
+)(withTranslation()(ArticleDetailContainer));

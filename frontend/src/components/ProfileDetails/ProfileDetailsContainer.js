@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { withTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -61,7 +62,7 @@ class ProfileDetailsContainer extends Component {
   }
 
   render() {
-    const { profile, userStories, userDraftStories, page, userPK } = this.props;
+    const { profile, userStories, userDraftStories, page, userPK, t } = this.props;
     return (
       <ProfileDetails
         profile={profile}
@@ -70,17 +71,23 @@ class ProfileDetailsContainer extends Component {
         page={page}
       >
         {page === "settings" && <SettingsForm />}
-        {page === "main"  && (
+        {page === "main" && (
           <Fragment>
-            {this.state.loggedUserProfile && userDraftStories && userDraftStories.length > 0 && (
-              <div>
-                <h3>Drafts:</h3>
-                <StorySlider stories={userDraftStories} />
-              </div>
-            )}
+            {this.state.loggedUserProfile &&
+              userDraftStories &&
+              userDraftStories.length > 0 && (
+                <div>
+                  <h3>Drafts:</h3>
+                  <StorySlider stories={userDraftStories} />
+                </div>
+              )}
             {userStories && userStories.length > 0 && (
               <div>
-                {(userPK && userPK == userStories[0].author.pk) ? <h3>Published:</h3>: <h3>Stories:</h3>}
+                {userPK && userPK == userStories[0].author.pk ? (
+                  <h3>{t("Published")}:</h3>
+                ) : (
+                  <h3>{t("Stories")}:</h3>
+                )}
                 <StorySlider stories={userStories} />
               </div>
             )}
@@ -119,4 +126,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileDetailsContainer);
+)(withTranslation()(ProfileDetailsContainer));

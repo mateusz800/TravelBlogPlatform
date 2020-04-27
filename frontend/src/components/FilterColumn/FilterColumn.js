@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withTranslation} from 'react-i18next';
 import { withRouter } from "react-router-dom";
 import styles from "./styles.module.css";
 import { searchStories } from "../../actions/storyActions";
@@ -29,7 +30,7 @@ class FilterColumn extends React.Component {
           <form onSubmit={this.handleSearchSubmit}>
             <input
               type="search"
-              placeholder="search"
+              placeholder={this.props.t("search")}
               onChange={this.handleInputChange}
             />
           </form>
@@ -45,4 +46,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(FilterColumn));
+export default connect(null, mapDispatchToProps)(withRouter(withTranslation()(FilterColumn)));

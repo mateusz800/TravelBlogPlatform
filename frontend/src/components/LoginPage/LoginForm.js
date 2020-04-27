@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { withTranslation} from 'react-i18next';
 import { login, resetLoginStatusMessages } from "../../actions/profileActions";
 import styles from "./styles.module.css";
 
@@ -26,6 +27,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    const {t} = this.props;
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit} className={styles.form}>
@@ -33,16 +35,16 @@ class LoginForm extends Component {
           <input
             type="text"
             name="email"
-            placeholder="email"
+            placeholder={t("email")}
             onChange={this.handleChange}
           />
           <input
             type="password"
             name="password"
-            placeholder="password"
+            placeholder={t("password")}
             onChange={this.handleChange}
           />
-          <input type="submit" value="login" />
+          <input type="submit" value={t("login")} />
         </form>
       </Fragment>
     );
@@ -62,4 +64,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(LoginForm));

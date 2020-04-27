@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { withTranslation } from "react-i18next";
 import Image from "../../Image/Image";
 import styles from "./styles.module.css";
 import { uploadPhoto } from "../../../actions/mediaActions";
@@ -35,7 +36,7 @@ class StoryHeaderForm extends Component {
   handleChange(e) {
     const name = e.target.name;
     if (name === "photo") {
-      this.props.uploadPhoto(e.target.files[0],photoTypes.STORY_COVER_PHOTO);
+      this.props.uploadPhoto(e.target.files[0], photoTypes.STORY_COVER_PHOTO);
       return;
     }
     this.setState({ [name]: e.target.value });
@@ -43,6 +44,7 @@ class StoryHeaderForm extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <Fragment>
         <Image
@@ -54,14 +56,14 @@ class StoryHeaderForm extends Component {
           <input
             name="title"
             type="text"
-            placeholder="title"
+            placeholder={t("title")}
             value={this.state.title}
             onChange={this.handleChange}
           />
           <input
             name="subtitle"
             type="text"
-            placeholder="subtitle"
+            placeholder={t("subtitle")}
             value={this.state.subtitle}
             onChange={this.handleChange}
           />
@@ -84,4 +86,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoryHeaderForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(StoryHeaderForm));

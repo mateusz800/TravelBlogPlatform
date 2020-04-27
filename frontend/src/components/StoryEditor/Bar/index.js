@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { withTranslation } from "react-i18next";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
@@ -27,6 +28,7 @@ class Bar extends React.Component {
 
   render() {
     let tags = null;
+    const { t } = this.props;
     if (this.props.tags) {
       tags = this.props.tags.map(tag => (
         <div key={tag}>
@@ -43,13 +45,13 @@ class Bar extends React.Component {
     }
     return (
       <div className={styles.container}>
-        <button onClick={this.props.previewFunc}> PREVIEW </button>
+        <button onClick={this.props.previewFunc}> {t("preview")} </button>
         <form onSubmit={this.addTag}>
           <input
             name="tag"
             type="text"
             onChange={this.onChange}
-            placeholder="add tag"
+            placeholder={t("add tag")}
           />
         </form>
         {tags}
@@ -58,4 +60,4 @@ class Bar extends React.Component {
   }
 }
 
-export default Bar;
+export default withTranslation()(Bar);

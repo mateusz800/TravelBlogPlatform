@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { convertToRaw } from "draft-js";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next"
 import { Redirect } from "react-router-dom";
 import "../../../node_modules/medium-draft/lib/index.css";
 import styles from "./styles.module.css";
@@ -145,7 +146,7 @@ class StoryEditor extends React.Component {
 
   render() {
     const { editorState, authorized, } = this.state;
-    const {story} = this.props;
+    const {story, t} = this.props;
     if (!authorized) {
       return <Redirect to="/404" />;
     }
@@ -166,7 +167,7 @@ class StoryEditor extends React.Component {
           removeTagFunc={this.removeTag}
           tags={story? story.tags: null}
         />}
-        <label for="status">Publish</label>
+        <label for="status">{t("Publish")}</label>
         <input
           type="checkbox"
           name="status"
@@ -214,4 +215,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoryEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(StoryEditor));

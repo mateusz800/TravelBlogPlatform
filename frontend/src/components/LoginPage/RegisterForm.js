@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import {withTranslation} from "react-i18next"
 import { register, resetLoginStatusMessages } from "../../actions/profileActions";
 import InputWarning from "./InputWarning";
 import styles from "./styles.module.css";
@@ -54,34 +55,35 @@ class RegisterForm extends Component {
     }
   }
   render() {
+    const {t} = this.props;
     return (
       <form onSubmit={this.handleSubmit} className={styles.form}>
         <h5 className={styles.warning}>{this.props.status || " "}</h5>
         <input
           type="email"
           name="email"
-          placeholder="email"
+          placeholder={t("email")}
           onChange={this.handleChange}
           required
         />
         <input
           type="text"
           name="firstName"
-          placeholder="first name"
+          placeholder={t("first name")}
           onChange={this.handleChange}
           required
         />
         <input
           type="text"
           name="lastName"
-          placeholder="last name"
+          placeholder={t("last name")}
           onChange={this.handleChange}
           required
         />
         <input
           type="password"
           name="password1"
-          placeholder="password"
+          placeholder={t("password")}
           onChange={this.handleChange}
           required
         />
@@ -89,16 +91,16 @@ class RegisterForm extends Component {
           <input
             type="password"
             name="password2"
-            placeholder="repeat password"
+            placeholder={t("repeat password")}
             onChange={this.handleChange}
             required
           />
           <InputWarning
-            message="Passwords are not the same"
+            message={t("Passwords are not the same")}
             display={!this.state.passwordsEqual}
           />
         </div>
-        <input type="submit" value="register" />
+        <input type="submit" value={t("register")} />
       </form>
     );
   }
@@ -119,4 +121,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(RegisterForm));
