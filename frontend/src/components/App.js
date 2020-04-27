@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "../store/index";
 import RoutingComponent from "./RoutingComponent";
 import Header from "./Header/Header";
+import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <RoutingComponent />
+        <Footer/>
       </BrowserRouter>
     </Provider>
   );

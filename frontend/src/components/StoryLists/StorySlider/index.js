@@ -1,12 +1,11 @@
 import React, { Component, Fragment, useState } from "react";
-import {connect} from "react-redux"
 import {Link} from 'react-router-dom'
 import ItemsCarousel from "react-items-carousel";
 import Card from "../../Card/Card";
 import TruncuatedText from "../../TruncuatedText/TruncuatedText";
 import styles from "./styles.module.css";
 
-const StorySlider = ({ stories, currentUserPK }) => {
+const StorySlider = ({ stories }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [numberOfCards, setNumberOfCards] = useState(parseInt(window.outerWidth / 300));
   const chevronWidth = 40;
@@ -20,7 +19,6 @@ const StorySlider = ({ stories, currentUserPK }) => {
         date={story.published_date}
         author={story.author}
         height="375px"
-        owner={currentUserPK && currentUserPK == story.author.pk}
         pk={story.pk}
       >
         <TruncuatedText lines={3} text={story.body} />

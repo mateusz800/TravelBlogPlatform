@@ -17,6 +17,11 @@ function storiesReducer(state = initialState, action) {
         ...state,
         featuredStories: action.payload
       };
+    case storyActions.GET_POPULAR_STORIES:
+      return {
+        ...state,
+        popularStories: action.payload
+      };
     case storyActions.GET_SIMILAR_STORIES:
       return {
         ...state,
@@ -56,7 +61,7 @@ function storiesReducer(state = initialState, action) {
       };
     case storyActions.ADD_TAG:
       const currentStory = state.currentStory;
-      if (!currentStory.tags.includes(action.payload)){
+      if (!currentStory.tags.includes(action.payload)) {
         currentStory.tags.push(action.payload);
       }
       return {

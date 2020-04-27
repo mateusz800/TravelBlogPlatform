@@ -1,10 +1,11 @@
 import React, { Fragment, Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Image from "../Image/Image";
 import Avatar from "../Avatar/Avatar";
-import { connect } from "react-redux";
+import MoreOptions from "../MoreOptions";
 import StoryList from "../StoryLists/StoryList";
 import styles from "./styles.module.css";
 import { render } from "react-dom";
@@ -18,6 +19,7 @@ import { photoTypes } from "../../actions/types";
 class ProfileDetails extends Component {
   constructor(props) {
     super(props);
+    this.state = { optionsMenu: false };
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(e) {
@@ -70,17 +72,31 @@ class ProfileDetails extends Component {
             <Link to={`/profile/${profile.pk}`}>
               <h3>{profile.name}</h3>
             </Link>
-            {loggedUserProfile && (
-              <Link to={`/profile/${profile.pk}/settings`}>
-                <h4>Settings</h4>
-              </Link>
-            )}
-            <div className="options">
+            <div
+              className={styles.moreOptionsBtn}
+              onClick={() =>
+                this.setState({ optionsMenu: !this.state.optionsMenu })
+              }
+            >
+              <MoreOptions />
+            </div>
+            <div
+              className={
+                this.state.optionsMenu ? styles.navShow : styles.navHide
+              }
+            >
               {loggedUserProfile && (
-                <Link to="/story/new">
-                  <h4>add story +</h4>
+                <Link to={`/profile/${profile.pk}/settings`}>
+                  <h4>Settings</h4>
                 </Link>
               )}
+              <div className="options">
+                {loggedUserProfile && (
+                  <Link to="/story/new">
+                    <h4>add story +</h4>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
 
@@ -92,9 +108,7 @@ class ProfileDetails extends Component {
                 onChange={this.handleChange}
               />
             )}
-            <div>
-             {children}
-            </div>
+            <div>{children}</div>
           </div>
         </div>
       );
