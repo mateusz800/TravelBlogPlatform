@@ -12,6 +12,7 @@ class Home extends React.Component {
     props.getFeaturedStories(3);
     props.getPopularStories(10);
   }
+
   render() {
     return (
       <div>

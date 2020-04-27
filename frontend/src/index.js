@@ -1,3 +1,4 @@
+import App from "./components/App";
 import store from "./store";
 
 // remove this line in production mode
