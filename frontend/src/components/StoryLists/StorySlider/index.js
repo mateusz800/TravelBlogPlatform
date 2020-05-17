@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import ItemsCarousel from "react-items-carousel";
 import Card from "../../Card/Card";
 import TruncuatedText from "../../TruncuatedText/TruncuatedText";
@@ -7,9 +7,11 @@ import styles from "./styles.module.css";
 
 const StorySlider = ({ stories }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const [numberOfCards, setNumberOfCards] = useState(parseInt(window.outerWidth / 300));
+  const [numberOfCards, setNumberOfCards] = useState(
+    parseInt(window.outerWidth / 300)
+  );
   const chevronWidth = 40;
-  const elements = stories.map(story => (
+  const elements = stories.map((story) => (
     <Link to={`/story/${story.pk}`} key={story.pk}>
       <Card
         key={story.pk}
@@ -25,13 +27,13 @@ const StorySlider = ({ stories }) => {
       </Card>
     </Link>
   ));
-  const handleResize = () =>{
+  const handleResize = () => {
     setNumberOfCards(parseInt(window.outerWidth / 300));
     setActiveItemIndex(0);
-  }
-  window.addEventListener('resize', handleResize);
+  };
+  window.addEventListener("resize", handleResize);
   return (
-      <div className={styles.container}>
+    <div className={styles.container}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
@@ -43,14 +45,11 @@ const StorySlider = ({ stories }) => {
         chevronWidth={chevronWidth}
         firstAndLastGutter={true}
         slidesToScroll={1}
-    
       >
         {elements}
       </ItemsCarousel>
-      </div>
-
+    </div>
   );
 };
-
 
 export default StorySlider;

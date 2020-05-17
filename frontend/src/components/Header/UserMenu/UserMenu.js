@@ -9,18 +9,20 @@ const UserMenu = ({ logout, profilePK, isAuthenticated, t }) => {
   if (profilePK || !isAuthenticated) {
     return (
       <div className={styles.menu}>
-        {isAuthenticated === false && (
-          <Fragment>
-            <Link to="/register">{t("join")}</Link>
-            <Link to="/login">{t("login")}</Link>
-          </Fragment>
-        )}
-        {isAuthenticated && (
-          <Fragment>
-            <Link to={`/profile/${profilePK}`}>{t("profile")}</Link>
-            <button onClick={logout}>{t("logout")}</button>
-          </Fragment>
-        )}
+        <div>
+          {isAuthenticated === false && (
+            <Fragment>
+              <Link to="/register">{t("join")}</Link>
+              <Link to="/login">{t("login")}</Link>
+            </Fragment>
+          )}
+          {isAuthenticated && (
+            <Fragment>
+              <Link to={`/profile/${profilePK}`}>{t("profile")}</Link>
+              <span onClick={logout}>{t("logout")}</span>
+            </Fragment>
+          )}
+        </div>
       </div>
     );
   }
@@ -29,14 +31,14 @@ const UserMenu = ({ logout, profilePK, isAuthenticated, t }) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
   };
 }
 
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.profiles.is_authenticated,
-    profilePK: state.profiles.user_pk
+    profilePK: state.profiles.user_pk,
   };
 }
 
