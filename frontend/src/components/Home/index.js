@@ -13,7 +13,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     props.getFeaturedStories(3);
-    props.getPopularStories(10);
+    props.getPopularStories(3);
   }
 
   render() {

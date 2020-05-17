@@ -31,10 +31,7 @@ const StorySlider = ({ stories }) => {
   }
   window.addEventListener('resize', handleResize);
   return (
-    <div
-      className={styles.container}
-      style={{ padding: `0 ${chevronWidth}px` }}
-    >
+      <div className={styles.container}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
@@ -44,10 +41,14 @@ const StorySlider = ({ stories }) => {
         rightChevron={<button>{">"}</button>}
         outsideChevron
         chevronWidth={chevronWidth}
+        firstAndLastGutter={true}
+        slidesToScroll={1}
+    
       >
         {elements}
       </ItemsCarousel>
-    </div>
+      </div>
+
   );
 };
 

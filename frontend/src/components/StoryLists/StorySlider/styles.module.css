@@ -1,3 +1,6 @@
-.container > div > div > div{
-    overflow-y:hidden;
+
+.container {
+    max-width:calc(100vw - 100px);
+    position:relative;
+    left:50px;
 }
