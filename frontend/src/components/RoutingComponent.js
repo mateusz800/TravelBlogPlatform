@@ -22,31 +22,31 @@ class RoutingComponent extends Component {
         <Route
           exact
           path="/stories/page/:page"
-          component={routeProps => <ArticleListContainer {...routeProps} />}
+          component={(routeProps) => <ArticleListContainer {...routeProps} />}
         />
         <Route
           exact
           path="/stories/search/:keywords/page/:page"
-          component={routeProps => <ArticleListContainer {...routeProps} />}
+          component={(routeProps) => <ArticleListContainer {...routeProps} />}
         />
         <Route exact path="/stories" component={ArticleListContainer} />
         <Route exact path="/story/new" component={StoryEditor} />
         <Route
           exact
           path="/story/:pk"
-          component={routeProps => <ArticleDetailContainer {...routeProps} />}
+          component={(routeProps) => <ArticleDetailContainer {...routeProps} />}
         />
         {is_authenticated && (
           <Route
             exact
             path="/story/:pk/edit"
-            component={routeProps => <StoryEditor {...routeProps} />}
+            component={(routeProps) => <StoryEditor {...routeProps} />}
           />
         )}
         <Route
           exact
           path="/profile/:pk"
-          component={routeProps => (
+          component={(routeProps) => (
             <ProfileDetailsContainer {...routeProps} page="main" />
           )}
         />
@@ -54,7 +54,7 @@ class RoutingComponent extends Component {
           <Route
             exact
             path="/profile/:pk/settings"
-            component={routeProps => (
+            component={(routeProps) => (
               <ProfileDetailsContainer {...routeProps} page="settings" />
             )}
           />
@@ -64,12 +64,22 @@ class RoutingComponent extends Component {
             <Route
               exact
               path="/login"
-              component={() => <LoginPage login={true} />}
+              component={() => <LoginPage type="login" />}
             />
             <Route
               exact
               path="/register"
-              component={() => <LoginPage login={false} />}
+              component={() => <LoginPage type="register" />}
+            />
+            <Route
+              exact
+              path="/reset_password"
+              component={() => <LoginPage type="reset password" />}
+            />
+                <Route
+              exact
+              path="/:userPK/new_password"
+              component={() => <LoginPage type="new password" />}
             />
           </Fragment>
         )}
@@ -80,13 +90,13 @@ class RoutingComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    is_authenticated: state.profiles.is_authenticated
+    is_authenticated: state.profiles.is_authenticated,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: () => dispatch(checkIfAuthenticated())
+    login: () => dispatch(checkIfAuthenticated()),
   };
 }
 

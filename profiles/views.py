@@ -20,7 +20,7 @@ from media.models import Photo
 from .models import Profile
 from .serializers import ProfileSerializer
 from .utils import generate_random_username
-from .tokens import account_activation_token
+from .tokens import account_activation_token, password_reset_token
 
 
 @api_view(['GET'])
@@ -123,6 +123,67 @@ def activate_account(request, uidb64, token):
         return redirect('/login')
     else:
         return Response({'status': 'failed'})
+
+
+@api_view(['POST'])
+def send_reset_password_link(request):
+    """
+    Send link that allows user to create new password
+    """
+    email = request.data['email']
+    print(email)
+    user = User.objects.get(email=email)
+    if user is not None:
+        # send verification email
+        current_site = get_current_site(request)
+        mail_subject = 'Reset your password'
+        message = render_to_string('reset_password_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': password_reset_token.make_token(user),
+        })
+        email = EmailMessage(
+            mail_subject, message, to=[email]
+        )
+        email.send()
+
+        return Response({'status': 'success'})
+    return Response({'status': 'failed'})
+
+@api_view()
+def reset_password_form(request, uidb64, token):
+    """
+    Activate account with the link sended by email.
+    """
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and password_reset_token.check_token(user, token):
+        return redirect('/{}/new_password'.format(user.pk))
+    else:
+        return Response({'status': 'failed'})
+
+@api_view(['POST'])
+def create_new_password(request):
+    """
+    Create new password
+    Post parameters:
+        user_pk - primery key of the user that want to change his/her password
+        new_password - password that will replace the old one
+    """
+    user_pk = request.data['user_pk']
+    new_password = request.data['new_password']
+
+    user = User.objects.get(pk=user_pk)
+    if user is not None:
+        user.set_password(new_password)
+        user.save()
+        print("zmienione")
+        return Response({'status': 'success'})
+    return Response({'status': 'failed'})
 
 
 @api_view()

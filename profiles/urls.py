@@ -10,4 +10,8 @@ urlpatterns = [
     path('api/is_authenticated', views.is_authenticated_view),
     path('activate_account/<str:uidb64>/<str:token>',
          views.activate_account, name='activate_account'),
+    path('api/reset_password_request', views.send_reset_password_link),
+    path('api/reset_password/<str:uidb64>/<str:token>',
+         views.reset_password_form, name='reset_password'),
+    path('api/create_new_password', views.create_new_password),
 ]

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import { login, resetLoginStatusMessages } from "../../actions/profileActions";
@@ -52,7 +53,7 @@ class LoginForm extends Component {
                 cursor: "pointer"
               }}
             >
-              {t("Forget password")}
+              <Link to="/reset_password">{t("Forget password")}</Link>
             </a>
           </div>
           <input type="submit" value={t("login")} />

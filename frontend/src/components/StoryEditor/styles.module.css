@@ -3,6 +3,7 @@
 }
 .editor > div{
   background:none;
+  margin-left:50px;
 }
 .editor .md-editor-toolbar{
   background: black !important;

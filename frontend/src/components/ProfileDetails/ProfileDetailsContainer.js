@@ -82,7 +82,7 @@ class ProfileDetailsContainer extends Component {
                 </div>
               )}
             {userStories && userStories.length > 0 && (
-              <div>
+              <div style={{marginRight:"100px"}}>
                 {userPK && userPK == userStories[0].author.pk ? (
                   <h3>{t("Published")}:</h3>
                 ) : (
