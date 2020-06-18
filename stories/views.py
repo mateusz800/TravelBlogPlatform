@@ -7,12 +7,14 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from six.moves.urllib.parse import urlparse
 
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 
 from .models import Story
 from .serializers import ArticleSerializer, GeneralArticleSerializer
+from media.models import Photo
 
 
 
@@ -84,7 +86,16 @@ def add_story(request):
     try:
         pk = request.data['pk']
         story = Story.objects.get(pk=pk)
-        serializer = GeneralArticleSerializer(story, data=request.data)
+        data = request.data
+        if isinstance(data['featured_photo'],str):
+            relative_path = '/'.join(urlparse(data['featured_photo']).path.split('/')[2:])
+            print(relative_path)
+            photo =  get_object_or_404(Photo, image=relative_path)
+            if photo:
+                data['featured_photo'] = photo.pk
+                print(photo.pk)
+        print(data)
+        serializer = GeneralArticleSerializer(story, data=data)
     except KeyError:
         # data has not pk attribute (story not exist)
         serializer = GeneralArticleSerializer(data=request.data)

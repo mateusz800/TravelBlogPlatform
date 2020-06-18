@@ -8,6 +8,11 @@ function mediaReducer(state = [], action) {
         ...state,
         [name]: action.payload
       };
+      case mediaActions.GET_USER_MEDIA:
+        return{
+          ...state,
+          userMedia: action.payload
+        }
     default:
       return state;
   }

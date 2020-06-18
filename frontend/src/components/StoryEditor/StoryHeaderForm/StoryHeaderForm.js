@@ -2,9 +2,10 @@ import React, { Component, Fragment } from "react";
 import { withTranslation } from "react-i18next";
 import Image from "../../Image/Image";
 import styles from "./styles.module.css";
-import { uploadPhoto } from "../../../actions/mediaActions";
+import { uploadPhoto, setPhotoType } from "../../../actions/mediaActions";
 import { connect } from "react-redux";
 import { photoTypes } from "../../../actions/types";
+import Gallery, { imageType } from "../SideButtons/Gallery";
 
 class StoryHeaderForm extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class StoryHeaderForm extends Component {
     this.state = { title: "", subtitle: "" };
 
     this.handleChange = this.handleChange.bind(this);
+    this.changePhoto = this.changePhoto.bind(this);
   }
   componentDidMount() {
     const { title, subtitle, photo } = this.props;
@@ -36,11 +38,21 @@ class StoryHeaderForm extends Component {
   handleChange(e) {
     const name = e.target.name;
     if (name === "photo") {
-      this.props.uploadPhoto(e.target.files[0], photoTypes.STORY_COVER_PHOTO);
+      this.props.uploadPhoto(
+        e.target.files[0],
+        photoTypes.STORY_COVER_PHOTO,
+        this.props.userPK
+      );
       return;
     }
     this.setState({ [name]: e.target.value });
     this.props.updateData(name, e.target.value);
+  }
+  changePhoto(photoUrl) {
+    console.log(photoUrl);
+    setPhotoType(photoUrl, photoTypes.STORY_COVER_PHOTO);
+    this.setState({ photo: photoUrl });
+    this.props.updateData("photo", photoUrl);
   }
 
   render() {
@@ -68,6 +80,10 @@ class StoryHeaderForm extends Component {
             onChange={this.handleChange}
           />
           <input name="photo" type="file" onChange={this.handleChange} />
+          <Gallery
+            imageType={imageType.storyCover}
+            addFunc={this.changePhoto}
+          />
         </div>
       </Fragment>
     );
@@ -76,13 +92,15 @@ class StoryHeaderForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    newPhoto: state.media[`new_${photoTypes.STORY_COVER_PHOTO}_photo`]
+    newPhoto: state.media[`new_${photoTypes.STORY_COVER_PHOTO}_photo`],
+    userPK: state.profiles.user_pk,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    uploadPhoto: (file, type) => dispatch(uploadPhoto(file, type))
+    uploadPhoto: (file, type, userPK) =>
+      dispatch(uploadPhoto(file, type, userPK)),
   };
 }
 

@@ -13,7 +13,7 @@ import { render } from "react-dom";
 import { uploadPhoto } from "../../actions/mediaActions";
 import {
   setUploadedPhotoType,
-  changeBackgroundPhoto
+  changeBackgroundPhoto,
 } from "../../actions/profileActions";
 import { photoTypes } from "../../actions/types";
 
@@ -29,14 +29,19 @@ class ProfileDetails extends Component {
       if (e.target.files.length > 0) {
         this.props.uploadPhoto(
           e.target.files[0],
-          photoTypes.PROFILE_BACKGROUND_PHOTO
+          photoTypes.PROFILE_BACKGROUND_PHOTO,
+          this.props.userPK
         );
         this.props.setPhotoType("backgroundPhoto");
         return;
       }
     } else if (name === "profilePhoto") {
       if (e.target.files.length > 0) {
-        this.props.uploadPhoto(e.target.files[0], photoTypes.PROFILE_PHOTO);
+        this.props.uploadPhoto(
+          e.target.files[0],
+          photoTypes.PROFILE_PHOTO,
+          this.props.userPK
+        );
         this.props.setPhotoType("profilePhoto");
         return;
       }
@@ -52,7 +57,7 @@ class ProfileDetails extends Component {
       page,
       draftStories,
       children,
-      t
+      t,
     } = this.props;
     if (profile) {
       return (
@@ -119,15 +124,21 @@ class ProfileDetails extends Component {
     return <Fragment />;
   }
 }
+function mapStateToProps(state) {
+  return {
+    userPK: state.profiles.user_pk,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    uploadPhoto: (file, type) => dispatch(uploadPhoto(file, type)),
-    setPhotoType: type => dispatch(setUploadedPhotoType(type))
+    uploadPhoto: (file, type, userPK) =>
+      dispatch(uploadPhoto(file, type, userPK)),
+    setPhotoType: (type) => dispatch(setUploadedPhotoType(type)),
   };
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withTranslation()(ProfileDetails));

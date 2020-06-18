@@ -20,6 +20,7 @@ import CustomImageSideButton from "./SideButtons/CustomImageSideButton";
 
 import { photoTypes } from "../../actions/types";
 import Bar from "./Bar";
+import Gallery from "./SideButtons/Gallery/index"
 
 class StoryEditor extends React.Component {
   statusCheckbox = null;
@@ -35,6 +36,10 @@ class StoryEditor extends React.Component {
     {
       title: "Image",
       component: CustomImageSideButton
+    },
+    {
+      title:"Gallery",
+      component: Gallery
     }
   ];
 
@@ -109,6 +114,7 @@ class StoryEditor extends React.Component {
     /* Send data to the database */
     const editorState = this.state.editorState;
     const renderedHTML = mediumDraftExporter(editorState.getCurrentContent());
+    console.log(this.state.photo);
     let data = {
       title: this.state.title,
       subtitle: this.state.subtitle,
@@ -120,6 +126,7 @@ class StoryEditor extends React.Component {
     if (this.props.story) {
       data["pk"] = this.props.story.pk;
     }
+    console.log(data);
     this.props.addStory(data);
   }
 

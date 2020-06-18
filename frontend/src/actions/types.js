@@ -25,7 +25,8 @@ export const profileActions = {
 };
 
 export const mediaActions = {
-  ADD_NEW_PHOTO: "ADD_NEW_PHOTO"
+  ADD_NEW_PHOTO: "ADD_NEW_PHOTO",
+  GET_USER_MEDIA: "GET_USER_MEDIA"
 };
 
 export const photoTypes = {
