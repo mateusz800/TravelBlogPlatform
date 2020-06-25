@@ -17,8 +17,6 @@ from .serializers import ArticleSerializer, GeneralArticleSerializer
 from media.models import Photo
 
 
-
-
 class StoryList(generics.ListCreateAPIView):
     """
     View that returns a list of artilces.
@@ -54,15 +52,18 @@ def story_details(request, pk):
         story, context={'request': request}, many=False)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def popular_stories(request, count=5):
     """
     Get list of popular stories
     """
-    stories = Story.objects.filter(status='published').order_by('-visits_count__hits')
+    stories = Story.objects.filter(
+        status='published').order_by('-visits_count__hits')
     stories_serializer = ArticleSerializer(
         stories, context={'request': request}, many=True)
     return Response({'stories': stories_serializer.data})
+
 
 @api_view(['GET'])
 def author_stories(request, author_pk, drafts=False):
@@ -83,18 +84,20 @@ def add_story(request):
     """
     View that allow you to add the new story
     """
+    data = request.data
+    if 'featured_photo' in data.keys() and isinstance(data['featured_photo'], str):
+        relative_path = '/'.join(
+            urlparse(data['featured_photo']).path.split('/')[2:])
+        print(relative_path)
+        photo = get_object_or_404(Photo, image=relative_path)
+        if photo:
+            data['featured_photo'] = photo.pk
+            print(photo.pk)
+        print(data)
     try:
         pk = request.data['pk']
         story = Story.objects.get(pk=pk)
-        data = request.data
-        if isinstance(data['featured_photo'],str):
-            relative_path = '/'.join(urlparse(data['featured_photo']).path.split('/')[2:])
-            print(relative_path)
-            photo =  get_object_or_404(Photo, image=relative_path)
-            if photo:
-                data['featured_photo'] = photo.pk
-                print(photo.pk)
-        print(data)
+
         serializer = GeneralArticleSerializer(story, data=data)
     except KeyError:
         # data has not pk attribute (story not exist)
@@ -130,6 +133,7 @@ def add_tag(request, story_pk, tag):
     story.save()
     return Response({'status': 'success'})
 
+
 @login_required
 @api_view(['GET'])
 def remove_tag(request, story_pk, tag):
@@ -152,5 +156,3 @@ def get_similar_stories(request, story_pk, count=4):
     serializer = ArticleSerializer(
         similar_stories, context={'request': request}, many=True)
     return Response(serializer.data)
-
-

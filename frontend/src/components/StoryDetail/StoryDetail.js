@@ -19,8 +19,8 @@ const StoryDetails = ({ story, owner, removeFunc }) => {
         <h3>{story.subtitle}</h3>
         <div className={styles.authorDate}>
           {story.author && (
-            <Link to={`/profile/${story.author.pk}`}>
-              <Author name={story.author.name} color="white" size={30} />
+            <Link to={`/profile/${story.author[0].pk}`}>
+              <Author name={story.author[0].name} color="white" size={30} />
             </Link>
           )}
           <span />

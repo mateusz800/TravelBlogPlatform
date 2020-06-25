@@ -16,6 +16,7 @@ export const uploadPhoto =  (photo, type, userPK) => dispatch => {
       photoType: type
     });
     */
+
     setPhotoType(res.data.source, type)
   })
 };
@@ -28,8 +29,7 @@ export async function uploadPhotoFn(photo, userPK){
   return result.data;
 }
 export const setPhotoType = (photoUrl, type) => dispatch =>{
-  console.log("ok");
-  console.log(type);
+
   dispatch({
     type:mediaActions.ADD_NEW_PHOTO,
     payload:{source:photoUrl},
@@ -43,7 +43,6 @@ get all photos of the given user
 */
 export const getUserMedia = (userPK) => dispatch =>{
   axios.get(`/api/media/user/${userPK}`).then(res => {
-    console.log(res);
     dispatch({
       type: mediaActions.GET_USER_MEDIA,
       payload: res.data,

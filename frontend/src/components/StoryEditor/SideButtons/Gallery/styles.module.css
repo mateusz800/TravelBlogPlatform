@@ -40,3 +40,7 @@
   .container{
       background-color: white;
   }
+  .selectedImage img{
+      max-width:40%;
+      max-height: 40vh;
+  }

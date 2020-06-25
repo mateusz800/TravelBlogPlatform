@@ -49,7 +49,6 @@ class StoryHeaderForm extends Component {
     this.props.updateData(name, e.target.value);
   }
   changePhoto(photoUrl) {
-    console.log(photoUrl);
     setPhotoType(photoUrl, photoTypes.STORY_COVER_PHOTO);
     this.setState({ photo: photoUrl });
     this.props.updateData("photo", photoUrl);
@@ -79,7 +78,6 @@ class StoryHeaderForm extends Component {
             value={this.state.subtitle}
             onChange={this.handleChange}
           />
-          <input name="photo" type="file" onChange={this.handleChange} />
           <Gallery
             imageType={imageType.storyCover}
             addFunc={this.changePhoto}

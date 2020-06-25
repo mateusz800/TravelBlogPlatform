@@ -3,25 +3,26 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-
 import Image from "../Image/Image";
 import Avatar from "../Avatar/Avatar";
 import MoreOptions from "../MoreOptions";
-import StoryList from "../StoryLists/StoryList";
 import styles from "./styles.module.css";
-import { render } from "react-dom";
 import { uploadPhoto } from "../../actions/mediaActions";
 import {
   setUploadedPhotoType,
   changeBackgroundPhoto,
+  changeProfilePhoto,
 } from "../../actions/profileActions";
 import { photoTypes } from "../../actions/types";
+import Gallery, { imageType } from "../StoryEditor/SideButtons/Gallery";
 
 class ProfileDetails extends Component {
   constructor(props) {
     super(props);
     this.state = { optionsMenu: false };
     this.handleChange = this.handleChange.bind(this);
+    this.setProfilePhoto = this.setProfilePhoto.bind(this);
+    this.setBackgroundPhoto = this.setBackgroundPhoto.bind(this);
   }
   handleChange(e) {
     const name = e.target.name;
@@ -35,20 +36,18 @@ class ProfileDetails extends Component {
         this.props.setPhotoType("backgroundPhoto");
         return;
       }
-    } else if (name === "profilePhoto") {
-      if (e.target.files.length > 0) {
-        this.props.uploadPhoto(
-          e.target.files[0],
-          photoTypes.PROFILE_PHOTO,
-          this.props.userPK
-        );
-        this.props.setPhotoType("profilePhoto");
-        return;
-      }
     }
+
     this.setState({ [name]: e.target.value });
-    this.props.updateData(name, e.target.value);
+    //this.props.updateData(name, e.target.value);
   }
+  setProfilePhoto(photo) {
+    this.props.changeProfilePhoto(this.props.userPK, photo);
+  }
+  setBackgroundPhoto(photo) {
+    this.props.changeBackgroundPhoto(this.props.userPK, photo)
+  }
+
   render() {
     const {
       profile,
@@ -65,12 +64,11 @@ class ProfileDetails extends Component {
           <Image height="40vh" src={profile.background_photo.source} />
           {loggedUserProfile && page == "settings" && (
             <div className={styles.bgPhotoInput}>
-              <input
-                type="file"
-                name="backgroundPhoto"
-                onChange={this.handleChange}
+              <Gallery
+                imageType={imageType.profilePhoto}
+                addFunc={this.setBackgroundPhoto}
               />
-            </div>
+              </div>
           )}
           <div className={`${styles.menu} shadow`}>
             <div className={styles.avatar}>
@@ -109,10 +107,9 @@ class ProfileDetails extends Component {
 
           <div className={styles.container}>
             {loggedUserProfile && page == "settings" && (
-              <input
-                type="file"
-                name="profilePhoto"
-                onChange={this.handleChange}
+              <Gallery
+                imageType={imageType.profilePhoto}
+                addFunc={this.setProfilePhoto}
               />
             )}
             <div>{children}</div>
@@ -135,6 +132,10 @@ function mapDispatchToProps(dispatch) {
     uploadPhoto: (file, type, userPK) =>
       dispatch(uploadPhoto(file, type, userPK)),
     setPhotoType: (type) => dispatch(setUploadedPhotoType(type)),
+    changeProfilePhoto: (userPk, photo) =>
+      dispatch(changeProfilePhoto(userPk, photo)),
+    changeBackgroundPhoto: (userPK, photo) =>
+      dispatch(changeBackgroundPhoto(userPK, photo)),
   };
 }
 

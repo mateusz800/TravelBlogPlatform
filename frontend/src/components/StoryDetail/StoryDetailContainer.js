@@ -29,7 +29,7 @@ class ArticleDetailContainer extends Component {
       this.props.story &&
       this.props.story.status &&
       this.props.story.status != "published" &&
-      this.props.profilePK != this.props.story.author.pk
+      this.props.profilePK != this.props.story.author[0].pk
     ) {
       this.setState({ authorized: false });
     }
@@ -62,7 +62,7 @@ class ArticleDetailContainer extends Component {
           <StoryDetails
             story={this.props.story}
             owner={
-              this.props.profilePK === this.props.story.author.pk ? true : false
+              this.props.profilePK === this.props.story.author[0].pk ? true : false
             }
             removeFunc={this.props.remove}
           />

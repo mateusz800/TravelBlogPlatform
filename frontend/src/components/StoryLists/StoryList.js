@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
 const StoryList = ({ stories, currentUser }) => {
+  console.log(currentUser);
   if (!stories) {
     return <Fragment />;
   } else if (stories.length == 0) {

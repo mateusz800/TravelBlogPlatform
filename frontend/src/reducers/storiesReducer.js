@@ -49,7 +49,6 @@ function storiesReducer(state = initialState, action) {
         userStories: action.payload
       };
     case storyActions.GET_USER_DRAFT_STORIES:
-      console.log("jest ok");
       return {
         ...state,
         userDrafts: action.payload

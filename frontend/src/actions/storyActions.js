@@ -87,19 +87,21 @@ export const searchStoriesOnPage = (keywords, page) => dispatch => {
 };
 
 export const addStory = data => dispatch => {
+ 
   let postData = {
     title: data.title,
     subtitle:data.subtitle,
     body: data.body,
-    author: store.getState().profiles.user_pk,
+    author: [store.getState().profiles.user_pk],
     status:data.status
   };
-  if (data.pk) {
+  if (data.pk ) {
     postData["pk"] = data.pk;
   }
-  if (data.photo) {
+  if (data.photo ) {
     postData.featured_photo = data.photo;
   }
+
   axios
     .post("/api/story/add", postData)
     .then(res => {
@@ -138,6 +140,7 @@ export const removeTag = (story_pk, tag) => dispatch => {
 
 /* remove story from database */
 export const removeStory = pk => dispatch => {
+  console.log('remove');
   axios.get(`/api/story/${pk}/remove`).then(res => {
       // Story removed. Go back.
       window.history.back();

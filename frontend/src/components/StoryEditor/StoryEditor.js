@@ -34,11 +34,7 @@ class StoryEditor extends React.Component {
   };
   sideButtons = [
     {
-      title: "Image",
-      component: CustomImageSideButton
-    },
-    {
-      title:"Gallery",
+      title:"Image",
       component: Gallery
     }
   ];
@@ -94,7 +90,7 @@ class StoryEditor extends React.Component {
         if (this.props.story.status === "published") {
           this.statusCheckbox.checked = true;
         }
-        if (this.props.userPK != this.props.story.author.pk) {
+        if (this.props.userPK != this.props.story.author[0].pk) {
           this.setState({ authorized: false });
         }
       }
@@ -112,26 +108,28 @@ class StoryEditor extends React.Component {
 
   save() {
     /* Send data to the database */
+    console.log('save');
     const editorState = this.state.editorState;
     const renderedHTML = mediumDraftExporter(editorState.getCurrentContent());
-    console.log(this.state.photo);
     let data = {
       title: this.state.title,
       subtitle: this.state.subtitle,
       body: renderedHTML,
       author: 1,
-      photo: this.state.photo,
       status: this.state.status ? this.state.status : "draft"
     };
     if (this.props.story) {
       data["pk"] = this.props.story.pk;
     }
-    console.log(data);
+    if(this.state.photo){
+      data.photo = this.state.photo
+    }
     this.props.addStory(data);
   }
 
   showPreview() {
     /* Save work and show how others see story */
+    console.log("preview");
     this.save();
     if(this.props.story){
       this.props.history.push(`/story/${this.props.story.pk}`);

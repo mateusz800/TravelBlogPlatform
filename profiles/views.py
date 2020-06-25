@@ -11,12 +11,14 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMessage
 
+
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
 from media.models import Photo
+from media.utils import get_photo_by_url
 from .models import Profile
 from .serializers import ProfileSerializer
 from .utils import generate_random_username
@@ -76,9 +78,12 @@ def register_view(request):
     """
     email = request.data['email']
     # check if the email is unique
-    if len(User.objects.filter(email=email)) > 0:
-        return Response({'status': 0})
-
+    users = User.objects.filter(email=email)
+    if len(user) > 0:
+        for u in users :
+            if u.is_active == False:
+                return Response({'status': 0})
+        
     password = request.data['password']
     user = User.objects.create(
         email=email, username=generate_random_username())
@@ -151,6 +156,7 @@ def send_reset_password_link(request):
         return Response({'status': 'success'})
     return Response({'status': 'failed'})
 
+
 @api_view()
 def reset_password_form(request, uidb64, token):
     """
@@ -165,6 +171,7 @@ def reset_password_form(request, uidb64, token):
         return redirect('/{}/new_password'.format(user.pk))
     else:
         return Response({'status': 'failed'})
+
 
 @api_view(['POST'])
 def create_new_password(request):
@@ -207,11 +214,18 @@ def edit_profile_view(request, pk):
     profile = get_object_or_404(Profile, user=pk)
     data = {}
     if 'background_photo' in request.data:
-        data['background_photo'] = get_object_or_404(
-            Photo, pk=request.data['background_photo'])
+        if isinstance(request.data['background_photo'], str):
+            data['background_photo'] = get_photo_by_url(
+                request.data['background_photo'])
+        else:
+            data['background_photo'] = get_object_or_404(
+                Photo, pk=request.data['background_photo'])
     if 'profile_photo' in request.data:
-        data['photo'] = get_object_or_404(
-            Photo, pk=request.data['profile_photo'])
+        if isinstance(request.data['profile_photo'], str):
+            data['photo'] = get_photo_by_url(request.data['profile_photo'])
+        else:
+            data['photo'] = get_object_or_404(
+                Photo, pk=request.data['profile_photo'])
     context = {'request': request}
     serializer = ProfileSerializer(context=context)
     new_profile = serializer.update(

@@ -146,6 +146,7 @@ export const changeBackgroundPhoto = (userPK, photoPK) => (dispatch) => {
   Change user profile photo and update the state
 */
 export const changeProfilePhoto = (userPK, photoPK) => (dispatch) => {
+  console.log(photoPK);
   axios
     .post(`/api/profile/${userPK}/edit`, { profile_photo: photoPK })
     .then((res) => {

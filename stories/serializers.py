@@ -32,8 +32,9 @@ class ArticleSerializer(serializers.ModelSerializer):
         """
         : returns : The author serialized data
         """
+        print(obj.author)
         serializer = ProfileSerializer(
-            obj.author, context={'request': self.context['request']})
+            obj.author, context={'request': self.context['request']}, many=True)
         return serializer.data
     
     def get_visits_count(self, obj):

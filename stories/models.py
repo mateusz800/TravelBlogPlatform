@@ -22,8 +22,9 @@ class Story(models.Model, HitCountMixin):
         ('draft', 'Draft'),
         ('published', 'Published')
     )
-    author = models.ForeignKey(
-        Profile, related_name='stories_of', on_delete=models.CASCADE)
+    author = models.ManyToManyField(Profile)
+    # author = models.ForeignKey(
+     #   Profile, related_name='stories_of', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     subtitle = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()

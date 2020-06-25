@@ -63,7 +63,7 @@ Card.propTypes = {
   /**
    * Author object containing parameters such as name, profile_photo (object with source param)
    */
-  author: PropTypes.object,
+  author: PropTypes.array,
   /**
    * A string representation of the date when the content was published.
    */
