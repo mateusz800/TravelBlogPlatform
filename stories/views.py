@@ -117,7 +117,8 @@ def remove_story(request, story_pk):
     """
     user = request.user.pk
     story = Story.objects.get(pk=story_pk)
-    if story.author.pk == user:
+    print(story.author.all())
+    if story.author.filter(pk=user):
         story.delete()
     return Response({'status': 'removed'})
 
