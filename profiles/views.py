@@ -79,7 +79,7 @@ def register_view(request):
     email = request.data['email']
     # check if the email is unique
     users = User.objects.filter(email=email)
-    if len(user) > 0:
+    if len(users) > 0:
         for u in users :
             if u.is_active == False:
                 return Response({'status': 0})

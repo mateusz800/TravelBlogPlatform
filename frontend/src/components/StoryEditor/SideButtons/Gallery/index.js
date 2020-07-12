@@ -28,9 +28,9 @@ class Gallery extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.uploadPhoto = this.uploadPhoto.bind(this);
   }
-  componentDidUpdate(prevProps){
-    if(this.props.media != prevProps.media){
-      this.setState({selected:this.props.media[0].source});
+  componentDidUpdate(prevProps) {
+    if (this.props.media != prevProps.media) {
+      this.setState({ selected: this.props.media[0].source });
     }
   }
   /*
@@ -65,7 +65,7 @@ class Gallery extends React.Component {
   }
 
   render() {
-    const { t } = this.props;
+    const { t, media } = this.props;
     if (!this.state.showModal) {
       return (
         <div
@@ -76,7 +76,7 @@ class Gallery extends React.Component {
         </div>
       );
     } else {
-      const media = this.props.media.map((elem) => {
+      const media = !media ? "" : media.map((elem) => {
         return (
           <label key={elem.source} className={styles.element}>
             <input
@@ -84,7 +84,7 @@ class Gallery extends React.Component {
               name="media"
               value={elem.source}
               onChange={this.handleChange}
-              checked={elem.source==this.state.selected ? true:false}
+              checked={elem.source == this.state.selected ? true : false}
             />
             <img src={elem.source} />
           </label>
@@ -101,8 +101,8 @@ class Gallery extends React.Component {
               <input type="file" onChange={this.uploadPhoto} />
             </div>
             <div class={styles.selectedImage}>
-              <img src={this.state.selected || this.props.media[0].source}/>
-              <input type="button" value={t('remove photo')}/>
+              <img src={this.state.selected || this.props.media[0].source} />
+              <input type="button" value={t('remove photo')} />
             </div>
             <div className={styles.list}>{media}</div>
             <div className={styles.bottomMenu}>
