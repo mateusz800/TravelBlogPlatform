@@ -14,12 +14,22 @@ Frontend:
 ### Running project
 1. Clonning project ```git clone https://github.com/mateusz800/blog```
 2. ``` cd ``` into project folder
-4. Creating virtual environment ```python -m venv venv```
-5. Activating venv ```source venv/bin/activate```
-6. Installing dependencies ``` pip install -r requirements.txt ```
-7. Changing settings.py (email server credentials)
-3. Migrating the database ```python manage.py migrate```
-4. Starting server ```python manage.py runserver```
+3. Creating virtual environment ```python -m venv venv```
+4. Activating venv ```source venv/bin/activate```
+5. Installing dependencies ``` pip install -r requirements.txt ```
+6. Changing settings.py (email server credentials)
+7. Migrating the database 
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+8. Starting server ```python manage.py runserver```
+
+**or by docker**
+1. Update settings.py (email server credentials)
+2. ```docker-compose up -d```
+
 
 The application will run on ```127.0.0.1:80000```
 
